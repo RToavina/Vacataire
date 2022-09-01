@@ -26,7 +26,7 @@
     <TextView
         android:id="@+id/matiere"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@android:drawable/editbox_background"
         android:drawableRight="@android:drawable/arrow_down_float"
@@ -34,26 +34,115 @@
         android:hint="Matières"
         android:padding="12dp" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Date à émarger :"
+        android:textSize="18sp"/>
+
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/in_date"
-            android:layout_width="200dp"
+            android:layout_width="330dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
             />
 
         <com.google.android.material.button.MaterialButton
             style="@style/Widget.MaterialComponents.Button.Icon"
-            android:layout_width="39dp"
-            android:layout_height="36dp"
-            app:icon="@drawable/calendrier"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:icon="@drawable/logo_calendrier"
             app:iconSize="15dp" />
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Heure de début :"
+        android:textSize="18sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/debut"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:icon="@drawable/time"
+            app:iconSize="15dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Heure de fin :"
+        android:textSize="18sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/fin"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:icon="@drawable/time"
+            app:iconSize="15dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Durée : "
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/duree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Durée"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/emargerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Emarger" />
+
 </LinearLayout>
+

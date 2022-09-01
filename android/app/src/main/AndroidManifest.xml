@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Vacataire">
         <activity
+            android:name=".Emargement"
+            android:exported="true" />
+        <activity
             android:name=".Signup"
             android:exported="true" />
         <activity

@@ -1,21 +1,28 @@
 package itu.mbds.vacataire;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class Signup extends AppCompatActivity {
 
-    private TextInputLayout reg_name,reg_username,reg_email,reg_phoneNumber,reg_password;
-    private Button regButton, matiereButton;
+    private TextInputLayout reg_name, reg_username, reg_email, reg_phoneNumber, reg_password;
+    private Button regButton;
+    private TextView matiere;
+    boolean[] selectedMatiere;
+    ArrayList<Integer> matiereList = new ArrayList<>();
+    String[] matiereArray = {"Français", "Mathématiques", "SVT", "Histoire", "Géographie", "EMC"};
 
     //private FirebaseAuth mAuth;
 
@@ -30,9 +37,92 @@ public class Signup extends AppCompatActivity {
         reg_phoneNumber = findViewById(R.id.reg_phoneNumber);
         reg_password = findViewById(R.id.reg_password);
         regButton = findViewById(R.id.regButton);
-        matiereButton = findViewById(R.id.matiereButton);
+        matiere = findViewById(R.id.matiere);
+
+        selectedMatiere = new boolean[matiereArray.length];
 
         //mAuth = FirebaseAuth.getInstance();
+
+        matiere.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Initialize alert dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(Signup.this);
+
+                // set title
+                builder.setTitle("Veuillez-choisir votre matière.");
+
+                // set dialog non cancelable
+                builder.setCancelable(false);
+
+                builder.setMultiChoiceItems(matiereArray, selectedMatiere, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                        // check condition
+                        if (b) {
+                            // when checkbox selected
+                            // Add position  in lang list
+                            matiereList.add(i);
+                            // Sort array list
+                            Collections.sort(matiereList);
+                        } else {
+                            // when checkbox unselected
+                            // Remove position from langList
+                            matiereList.remove(Integer.valueOf(i));
+                        }
+                    }
+                });
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // Initialize string builder
+                        StringBuilder stringBuilder = new StringBuilder();
+                        // use for loop
+                        for (int j = 0; j < matiereList.size(); j++) {
+                            // concat array value
+                            stringBuilder.append(matiereArray[matiereList.get(j)]);
+                            // check condition
+                            if (j != matiereList.size() - 1) {
+                                // When j value  not equal
+                                // to lang list size - 1
+                                // add comma
+                                stringBuilder.append(", ");
+                            }
+                        }
+                        // set text on textView
+                        matiere.setText(stringBuilder.toString());
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // dismiss dialog
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // use for loop
+                        for (int j = 0; j < selectedMatiere.length; j++) {
+                            // remove all selection
+                            selectedMatiere[j] = false;
+                            // clear language list
+                            matiereList.clear();
+                            // clear text view value
+                            matiere.setText("");
+                        }
+                    }
+                });
+                // show dialog
+                builder.show();
+            }
+        });
+
 
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +136,7 @@ public class Signup extends AppCompatActivity {
     /**
      * Register User
      */
-    private void registerUser(){
+    private void registerUser() {
         //get all the values
         String name = reg_name.getEditText().getText().toString().trim();
         String username = reg_username.getEditText().getText().toString().trim();
@@ -54,51 +144,51 @@ public class Signup extends AppCompatActivity {
         String phoneNumber = reg_phoneNumber.getEditText().getText().toString().trim();
         String password = reg_password.getEditText().getText().toString().trim();
 
-        if(name.isEmpty()){
+        if (name.isEmpty()) {
             reg_name.setError("Nom obligatoire");
             reg_name.requestFocus();
             return;
         }
 
-        if(username.isEmpty()){
+        if (username.isEmpty()) {
             reg_username.setError("Identifiant obligatoire");
             reg_username.requestFocus();
             return;
 
         }
 
-        if(email.isEmpty()){
+        if (email.isEmpty()) {
             reg_email.setError("Email obligatoire");
             reg_email.requestFocus();
             return;
 
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             reg_email.setError("Email obligatoire");
             reg_email.requestFocus();
             return;
         }
 
-        if(phoneNumber.isEmpty()){
+        if (phoneNumber.isEmpty()) {
             reg_phoneNumber.setError("Numéro de téléphone obligatoire");
             reg_phoneNumber.requestFocus();
             return;
         }
 
-        if(password.isEmpty()){
+        if (password.isEmpty()) {
             reg_password.setError("Mot de passe obligatoire");
             reg_password.requestFocus();
             return;
         }
 
-        if (password.length() < 6 ){
+        if (password.length() < 6) {
             reg_password.setError("Mot de passe trop court");
             reg_password.requestFocus();
             return;
         }
 
-        System.out.println(email+" "+password);
+        System.out.println(email + " " + password);
 
         /*
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(Signup.this,new OnCompleteListener<AuthResult>() {

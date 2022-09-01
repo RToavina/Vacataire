@@ -101,11 +101,18 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/matiereButton"
+        <!-- text view to display selected items-->
+        <TextView
+            android:id="@+id/matiere"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Matières" />
+            android:layout_height="55dp"
+            android:layout_centerInParent="true"
+            android:background="@android:drawable/editbox_background"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:drawablePadding="16dp"
+            android:hint="Veuillez-choisir vos matières"
+            android:padding="12dp"
+            />
 
     </LinearLayout>
 

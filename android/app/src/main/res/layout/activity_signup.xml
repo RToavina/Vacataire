@@ -111,8 +111,7 @@
             android:drawableRight="@android:drawable/arrow_down_float"
             android:drawablePadding="16dp"
             android:hint="Veuillez-choisir vos matières"
-            android:padding="12dp"
-            />
+            android:padding="12dp" />
 
     </LinearLayout>
 

@@ -1,0 +1,543 @@
+Index: app/src/main/res/layout/activity_login.xml
+===================================================================
+diff --git a/app/src/main/res/layout/activity_login.xml b/app/src/main/res/layout/activity_login.xml
+deleted file mode 100644
+--- a/app/src/main/res/layout/activity_login.xml	
++++ /dev/null	
+@@ -1,71 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    tools:context=".Login"
+-    android:orientation="vertical">
+-
+-    <ImageView
+-        android:id="@+id/logo"
+-        android:layout_width="match_parent"
+-        android:layout_height="150dp"
+-        android:src="@drawable/logo" />
+-
+-    <TextView
+-        android:id="@+id/texteWelcome"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:fontFamily="sans-serif-black"
+-        android:text="Bienvenue sur VACATAIRE."
+-        android:textSize="24sp" />
+-
+-    <TextView
+-        android:id="@+id/textSign"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:fontFamily="sans-serif-condensed"
+-        android:text="Connectez-vous pour continuer." />
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:orientation="vertical"
+-        android:layout_marginTop="20dp"
+-        android:layout_marginBottom="20dp">
+-
+-        <com.google.android.material.textfield.TextInputLayout
+-            android:id="@+id/identifiant"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+-            android:hint="Identifiant">
+-            <com.google.android.material.textfield.TextInputEditText
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content" />
+-        </com.google.android.material.textfield.TextInputLayout>
+-
+-        <com.google.android.material.textfield.TextInputLayout
+-            android:id="@+id/password"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+-            android:hint="Password"
+-            app:passwordToggleEnabled="true">
+-            <com.google.android.material.textfield.TextInputEditText
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:inputType="textPassword" />
+-        </com.google.android.material.textfield.TextInputLayout>
+-
+-        <Button
+-            android:id="@+id/connect"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:layout_marginTop="5dp"
+-            android:layout_marginBottom="5dp"
+-            android:text="Connexion" />
+-    </LinearLayout>
+-
+-</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_signup.xml
+===================================================================
+diff --git a/app/src/main/res/layout/activity_signup.xml b/app/src/main/res/layout/activity_signup.xml
+deleted file mode 100644
+--- a/app/src/main/res/layout/activity_signup.xml	
++++ /dev/null	
+@@ -1,122 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:orientation="vertical"
+-    tools:context=".Signup"
+-    android:padding="20dp">
+-
+-    <ImageView
+-        android:id="@+id/logo"
+-        android:layout_width="match_parent"
+-        android:layout_height="85dp"
+-        android:src="@drawable/logo" />
+-
+-    <TextView
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="20dp"
+-        android:text="Bienvenue"
+-        android:textSize="30sp" />
+-
+-    <TextView
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:text="Inscription"
+-        android:textSize="18sp" />
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:orientation="vertical"
+-        android:layout_marginTop="20dp"
+-        android:layout_marginBottom="20dp">
+-
+-        <com.google.android.material.textfield.TextInputLayout
+-            android:id="@+id/reg_name"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:hint="Nom"
+-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+-
+-            <com.google.android.material.textfield.TextInputEditText
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:inputType="text" />
+-
+-        </com.google.android.material.textfield.TextInputLayout>
+-
+-        <com.google.android.material.textfield.TextInputLayout
+-            android:id="@+id/reg_email"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:hint="Email"
+-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+-
+-            <com.google.android.material.textfield.TextInputEditText
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:inputType="textEmailAddress" />
+-
+-        </com.google.android.material.textfield.TextInputLayout>
+-
+-
+-        <com.google.android.material.textfield.TextInputLayout
+-            android:id="@+id/reg_tel"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:hint="Numero de téléphone"
+-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+-
+-            <com.google.android.material.textfield.TextInputEditText
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:inputType="phone" />
+-
+-        </com.google.android.material.textfield.TextInputLayout>
+-
+-        <com.google.android.material.textfield.TextInputLayout
+-            android:id="@+id/reg_identifiant"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+-            android:hint="identifiant">
+-
+-            <com.google.android.material.textfield.TextInputEditText
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:inputType="text" />
+-
+-        </com.google.android.material.textfield.TextInputLayout>
+-
+-        <Button
+-            android:id="@+id/matiereButton"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:text="Matiere" />
+-
+-        <com.google.android.material.textfield.TextInputLayout
+-            android:id="@+id/reg_password"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+-            android:hint="Mot de passe"
+-            app:passwordToggleEnabled="true">
+-
+-            <com.google.android.material.textfield.TextInputEditText
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:inputType="textPassword" />
+-
+-        </com.google.android.material.textfield.TextInputLayout>
+-
+-    </LinearLayout>
+-
+-    <Button
+-        android:id="@+id/regButton"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:text="INSCRIPTION" />
+-</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/itu/mbds/vacataire/Login.java
+===================================================================
+diff --git a/app/src/main/java/itu/mbds/vacataire/Login.java b/app/src/main/java/itu/mbds/vacataire/Login.java
+deleted file mode 100644
+--- a/app/src/main/java/itu/mbds/vacataire/Login.java	
++++ /dev/null	
+@@ -1,93 +0,0 @@
+-package itu.mbds.vacataire;
+-
+-import androidx.annotation.NonNull;
+-import androidx.appcompat.app.AppCompatActivity;
+-
+-import android.content.Intent;
+-import android.os.Bundle;
+-import android.view.View;
+-import android.view.WindowManager;
+-import android.widget.Button;
+-import android.widget.ImageView;
+-import android.widget.TextView;
+-import android.widget.Toast;
+-
+-import com.google.android.gms.tasks.OnCompleteListener;
+-import com.google.android.gms.tasks.Task;
+-import com.google.android.material.textfield.TextInputLayout;
+-import com.google.firebase.auth.AuthResult;
+-import com.google.firebase.auth.FirebaseAuth;
+-
+-public class Login extends AppCompatActivity {
+-
+-    private ImageView logo;
+-    private TextView textWelcome,textSign;
+-    private Button connect;
+-    private TextInputLayout identifiant,password;
+-
+-    //private FirebaseAuth mAuth;
+-
+-
+-    @Override
+-    protected void onCreate(Bundle savedInstanceState) {
+-        super.onCreate(savedInstanceState);
+-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+-        setContentView(R.layout.activity_login);
+-
+-        logo = (ImageView) findViewById(R.id.logo);
+-        textWelcome = (TextView) findViewById(R.id.texteWelcome);
+-        textSign = (TextView) findViewById(R.id.textSign);
+-        connect = (Button) findViewById(R.id.connect);
+-        identifiant = (TextInputLayout) findViewById(R.id.identifiant);
+-        password = (TextInputLayout) findViewById(R.id.password);
+-
+-        //mAuth = FirebaseAuth.getInstance();
+-
+-        connect.setOnClickListener(new View.OnClickListener() {
+-            @Override
+-            public void onClick(View v) {
+-                //userLogin();
+-            }
+-        });
+-    }
+-
+-    /**
+-     **/
+-    private void userLogin() {
+-        String string_identifiant = identifiant.getEditText().getText().toString().trim();
+-        String string_password = password.getEditText().getText().toString().trim();
+-
+-        if(string_identifiant.isEmpty()){
+-            identifiant.setError("Ce champs est obligatoire");
+-            identifiant.requestFocus();
+-            return;
+-        }
+-
+-        if(string_password.isEmpty()){
+-            password.setError("Ce champs est obligatoire");
+-            password.requestFocus();
+-            return;
+-        }
+-
+-        if(string_password.length() < 6){
+-            password.setError("Le mot de passe doit contenir au moins 6 caractères");
+-            password.requestFocus();
+-            return;
+-        }
+-
+-        /*mAuth.signInWithEmailAndPassword(string_email,string_password).addOnCompleteListener(Login.this,new OnCompleteListener<AuthResult>() {
+-            @Override
+-            public void onComplete(@NonNull Task<AuthResult> task) {
+-                if(task.isSuccessful()){
+-                    Toast.makeText(Login.this, "Login OK", Toast.LENGTH_SHORT).show();
+-                    Intent intent = new Intent(Login.this,UserProfile.class);
+-                    intent.putExtra("email",string_email);
+-                    startActivity(intent);
+-                    Login.this.finish();
+-                }else {
+-                    Toast.makeText(Login.this,"Failed to login please check your credentials",Toast.LENGTH_LONG).show();
+-                }
+-            }
+-        });*/
+-    }
+-}
+\ No newline at end of file
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	
++++ /dev/null	
+@@ -1,3 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+Index: app/src/main/java/itu/mbds/vacataire/Signup.java
+===================================================================
+diff --git a/app/src/main/java/itu/mbds/vacataire/Signup.java b/app/src/main/java/itu/mbds/vacataire/Signup.java
+deleted file mode 100644
+--- a/app/src/main/java/itu/mbds/vacataire/Signup.java	
++++ /dev/null	
+@@ -1,134 +0,0 @@
+-package itu.mbds.vacataire;
+-
+-import androidx.annotation.NonNull;
+-import androidx.appcompat.app.AppCompatActivity;
+-
+-import android.content.Intent;
+-import android.os.Bundle;
+-import android.util.Patterns;
+-import android.view.View;
+-import android.widget.Button;
+-import android.widget.Toast;
+-
+-import com.google.android.gms.tasks.OnCompleteListener;
+-import com.google.android.gms.tasks.Task;
+-import com.google.android.material.textfield.TextInputLayout;
+-import com.google.firebase.auth.AuthResult;
+-import com.google.firebase.auth.FirebaseAuth;
+-import com.google.firebase.database.FirebaseDatabase;
+-
+-public class Signup extends AppCompatActivity {
+-
+-    private TextInputLayout reg_name,reg_email,reg_tel,reg_identifiant,reg_password;
+-    private Button regButton;
+-
+-    //private FirebaseAuth mAuth;
+-
+-    @Override
+-    protected void onCreate(Bundle savedInstanceState) {
+-        super.onCreate(savedInstanceState);
+-        setContentView(R.layout.activity_signup);
+-
+-        reg_name = findViewById(R.id.reg_name);
+-        reg_email = findViewById(R.id.reg_email);
+-        reg_tel = findViewById(R.id.reg_tel);
+-        reg_identifiant = findViewById(R.id.reg_identifiant);
+-        reg_password = findViewById(R.id.reg_password);
+-        regButton = findViewById(R.id.regButton);
+-
+-        //mAuth = FirebaseAuth.getInstance();
+-
+-        regButton.setOnClickListener(new View.OnClickListener() {
+-            @Override
+-            public void onClick(View v) {
+-                //registerUser();
+-            }
+-        });
+-    }
+-
+-    /**
+-     * Register User**/
+-
+-    private void registerUser(){
+-        //get all the values
+-        String name = reg_name.getEditText().getText().toString().trim();
+-        String email = reg_email.getEditText().getText().toString().trim();
+-        String tel = reg_tel.getEditText().getText().toString().trim();
+-        String identifiant = reg_identifiant.getEditText().getText().toString().trim();
+-        String password = reg_password.getEditText().getText().toString().trim();
+-
+-        if(name.isEmpty()){
+-            reg_name.setError("Ce champs est obligatoire");
+-            reg_name.requestFocus();
+-            return;
+-        }
+-
+-        if(email.isEmpty()){
+-            reg_email.setError("Ce champs est obligatoire");
+-            reg_email.requestFocus();
+-            return;
+-        }
+-
+-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+-            reg_email.setError("Ce champs est obligatoire");
+-            reg_email.requestFocus();
+-            return;
+-        }
+-
+-        if(tel.isEmpty()){
+-            reg_tel.setError("Ce champs est obligatoire");
+-            reg_tel.requestFocus();
+-            return;
+-        }
+-
+-        if(identifiant.isEmpty()){
+-            reg_identifiant.setError("Ce champs est obligatoire");
+-            reg_identifiant.requestFocus();
+-            return;
+-
+-        }
+-
+-        if(password.isEmpty()){
+-            reg_password.setError("Ce champs est obligatoire");
+-            reg_password.requestFocus();
+-            return;
+-        }
+-
+-        if (password.length() < 6 ){
+-            reg_password.setError("Le mot de passe doit contenir au moins 6 caractères");
+-            reg_password.requestFocus();
+-            return;
+-        }
+-
+-        System.out.println(identifiant+" "+password);
+-
+-        /*
+-
+-        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(Signup.this,new OnCompleteListener<AuthResult>() {
+-            @Override
+-            public void onComplete(@NonNull Task<AuthResult> task) {
+-                System.out.println("Authentification ...");
+-                if(task.isSuccessful()){
+-                    UserHelperClass helperClass = new UserHelperClass(name,username,email,phoneNumber,password);
+-                    FirebaseDatabase.getInstance().getReference("users").child(phoneNumber).setValue(helperClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+-                        @Override
+-                        public void onComplete(@NonNull Task<Void> task) {
+-                            System.out.println("Database find Success ...");
+-                            if(task.isSuccessful()){
+-                                Toast.makeText(Signup.this,"Register OK",Toast.LENGTH_LONG).show();
+-                                Intent intent = new Intent(Signup.this,Login.class);
+-                                startActivity(intent);
+-                                Signup.this.finish();
+-                            }else {
+-                                Toast.makeText(Signup.this,"Register Fail",Toast.LENGTH_LONG).show();
+-                            }
+-                        }
+-                    });
+-
+-                }else{
+-                    Toast.makeText(Signup.this,"Register Fail",Toast.LENGTH_LONG).show();
+-                }
+-            }
+-        });*/
+-    }
+-}
+\ No newline at end of file
+Index: .idea/deploymentTargetDropDown.xml
+===================================================================
+diff --git a/.idea/deploymentTargetDropDown.xml b/.idea/deploymentTargetDropDown.xml
+deleted file mode 100644
+--- a/.idea/deploymentTargetDropDown.xml	
++++ /dev/null	
+@@ -1,17 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="deploymentTargetDropDown">
+-    <targetSelectedWithDropDown>
+-      <Target>
+-        <type value="QUICK_BOOT_TARGET" />
+-        <deviceKey>
+-          <Key>
+-            <type value="VIRTUAL_DEVICE_PATH" />
+-            <value value="C:\Users\Royal\.android\avd\Tablette_Android_5.avd" />
+-          </Key>
+-        </deviceKey>
+-      </Target>
+-    </targetSelectedWithDropDown>
+-    <timeTargetWasSelectedWithDropDown value="2022-08-31T14:55:54.801897100Z" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/runConfigurations.xml
+===================================================================
+diff --git a/.idea/runConfigurations.xml b/.idea/runConfigurations.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/runConfigurations.xml	
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="RunConfigurationProducerService">
++    <option name="ignoredProducers">
++      <set>
++        <option value="com.android.tools.idea.compose.preview.runconfiguration.ComposePreviewRunConfigurationProducer" />
++      </set>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/jarRepositories.xml
+===================================================================
+diff --git a/.idea/jarRepositories.xml b/.idea/jarRepositories.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/jarRepositories.xml	
+@@ -0,0 +1,30 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="RemoteRepositoriesConfiguration">
++    <remote-repository>
++      <option name="id" value="central" />
++      <option name="name" value="Maven Central repository" />
++      <option name="url" value="https://repo1.maven.org/maven2" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="jboss.community" />
++      <option name="name" value="JBoss Community repository" />
++      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="MavenRepo" />
++      <option name="name" value="MavenRepo" />
++      <option name="url" value="https://repo.maven.apache.org/maven2/" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="BintrayJCenter" />
++      <option name="name" value="BintrayJCenter" />
++      <option name="url" value="https://jcenter.bintray.com/" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="Google" />
++      <option name="name" value="Google" />
++      <option name="url" value="https://dl.google.com/dl/android/maven2/" />
++    </remote-repository>
++  </component>
++</project>
+\ No newline at end of file

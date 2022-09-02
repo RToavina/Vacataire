@@ -8,14 +8,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Emargement extends AppCompatActivity {
 
     private TextView matiere;
     boolean[] selectedMatiere;
-    ArrayList<Integer> matiereList = new ArrayList<>();
+    TextInputLayout menu;
+    List<Integer> matiereList = new ArrayList<>();
     String[] matiereArray = {"Français", "Mathématiques", "SVT", "Histoire", "Géographie", "EMC"};
 
     @Override
@@ -24,6 +28,8 @@ public class Emargement extends AppCompatActivity {
         setContentView(R.layout.activity_emargement);
 
         matiere = findViewById(R.id.matiere);
+
+        menu = findViewById(R.id.menu);
 
         selectedMatiere = new boolean[matiereArray.length];
 

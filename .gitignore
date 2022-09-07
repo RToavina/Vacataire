@@ -1,6 +1,8 @@
+.idea
+.vscode
 back/.idea/
 back/.mvn/
-front/.idea/
-front/vacataire/.vscode/
+web/.idea/
+web/vacataire/.vscode/
 mobile/.gradle/
 mobile/.idea/

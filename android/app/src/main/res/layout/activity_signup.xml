@@ -117,8 +117,9 @@
 
     <Button
         android:id="@+id/regButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="INSCRIPTION" />
+        android:text="INSCRIPTION"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

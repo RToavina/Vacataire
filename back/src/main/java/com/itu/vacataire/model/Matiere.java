@@ -1,8 +1,8 @@
 package com.itu.vacataire.model;
 
-import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity

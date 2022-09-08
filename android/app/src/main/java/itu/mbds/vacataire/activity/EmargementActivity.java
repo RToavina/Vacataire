@@ -1,4 +1,4 @@
-package itu.mbds.vacataire;
+package itu.mbds.vacataire.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Emargement extends AppCompatActivity {
+import itu.mbds.vacataire.R;
+
+public class EmargementActivity extends AppCompatActivity {
 
     private TextView matiere;
     boolean[] selectedMatiere;
@@ -38,7 +40,7 @@ public class Emargement extends AppCompatActivity {
             public void onClick(View view) {
 
                 // Initialize alert dialog
-                AlertDialog.Builder builder = new AlertDialog.Builder(Emargement.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(EmargementActivity.this);
 
                 // set title
                 builder.setTitle("Veuillez-choisir votre matière.");

@@ -17,7 +17,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".WeekViewActivity"
+            android:name=".calendar.WeekViewActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -31,16 +31,16 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Emargement"
+            android:name=".activity.EmargementActivity"
             android:exported="true" />
         <activity
-            android:name=".Signup"
+            android:name=".activity.SignupActivity"
             android:exported="true" />
         <activity
-            android:name=".Login"
+            android:name=".activity.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".activity.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package itu.mbds.vacataire;
+package itu.mbds.vacataire.activity;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -8,10 +8,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+import itu.mbds.vacataire.R;
 import itu.mbds.vacataire.calendar.Calendar;
-import itu.mbds.vacataire.calendar.WeekViewActivity;
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
 
     private ImageView logo;
     private TextView titre;
@@ -28,9 +28,9 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreen.this, Calendar.class);
+                Intent intent = new Intent(SplashScreenActivity.this, Calendar.class);
                 startActivity(intent);
-                SplashScreen.this.finish();
+                SplashScreenActivity.this.finish();
             }
         },2000);
     }

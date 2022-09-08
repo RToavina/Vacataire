@@ -1,25 +1,24 @@
 package itu.mbds.vacataire.calendar;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import static itu.mbds.vacataire.calendar.CalendarUtils.daysInWeekArray;
+import static itu.mbds.vacataire.calendar.CalendarUtils.monthYearFromDate;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import itu.mbds.vacataire.Emargement;
+import itu.mbds.vacataire.models.Emargement;
 import itu.mbds.vacataire.R;
-
-import static itu.mbds.vacataire.calendar.CalendarUtils.daysInMonthArray;
-import static itu.mbds.vacataire.calendar.CalendarUtils.daysInWeekArray;
-import static itu.mbds.vacataire.calendar.CalendarUtils.monthYearFromDate;
+import itu.mbds.vacataire.adapter.EmargementAdapter;
 
 public class WeekViewActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener {
 
@@ -72,17 +71,15 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
     @Override
     protected void onResume() {
         super.onResume();
-        //setEventAdpater();
+        setEmargemntAdpater();
     }
 
-//    private void setEventAdpater() {
-//        ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
-//        EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
-//        eventListView.setAdapter(eventAdapter);
-//    }
-
-    public void newEventAction(View view) {
-        startActivity(new Intent(this, EventEditActivity.class));
+    private void setEmargemntAdpater() {
+        ArrayList<Emargement> emargements = new ArrayList<>();
+        emargements.add(new Emargement("test"));
+        //TODO get tous les emargements via la date selectionnée
+        EmargementAdapter adapter = new EmargementAdapter(getApplicationContext(), emargements);
+        eventListView.setAdapter(adapter);
     }
 
     public void emargerAction(View view) {

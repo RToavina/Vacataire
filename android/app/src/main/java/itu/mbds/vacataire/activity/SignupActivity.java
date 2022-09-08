@@ -1,4 +1,4 @@
-package itu.mbds.vacataire;
+package itu.mbds.vacataire.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,7 +15,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Signup extends AppCompatActivity {
+import itu.mbds.vacataire.R;
+
+public class SignupActivity extends AppCompatActivity {
 
     private TextInputLayout reg_name, reg_username, reg_email, reg_phoneNumber, reg_password;
     private Button regButton;
@@ -48,7 +50,7 @@ public class Signup extends AppCompatActivity {
             public void onClick(View view) {
 
                 // Initialize alert dialog
-                AlertDialog.Builder builder = new AlertDialog.Builder(Signup.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
 
                 // set title
                 builder.setTitle("Veuillez-choisir votre matière.");

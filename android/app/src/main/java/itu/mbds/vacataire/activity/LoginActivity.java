@@ -1,4 +1,4 @@
-package itu.mbds.vacataire;
+package itu.mbds.vacataire.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +14,9 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-public class Login extends AppCompatActivity {
+import itu.mbds.vacataire.R;
+
+public class LoginActivity extends AppCompatActivity {
 
     private ImageView logo;
     private TextView textWelcome,textSign;

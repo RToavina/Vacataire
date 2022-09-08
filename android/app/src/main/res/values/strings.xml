@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Vacataire</string>
+    <string name="lundi">LUN</string>
+    <string name="mardi">MAR</string>
+    <string name="mercredi">MER</string>
+    <string name="jeudi">JEU</string>
+    <string name="vendredi">VEN</string>
+    <string name="samedi">SAM</string>
+    <string name="dimanche">DIM</string>
 </resources>

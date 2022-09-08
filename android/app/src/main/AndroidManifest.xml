@@ -10,6 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Vacataire">
         <activity
+            android:name=".calendar.Calendar"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Emargement"
             android:exported="true" />
         <activity

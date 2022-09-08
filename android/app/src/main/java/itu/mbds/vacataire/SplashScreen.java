@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+import itu.mbds.vacataire.calendar.Calendar;
+
 public class SplashScreen extends AppCompatActivity {
 
     private ImageView logo;
@@ -25,7 +27,7 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreen.this, Emargement.class);
+                Intent intent = new Intent(SplashScreen.this, Calendar.class);
                 startActivity(intent);
                 SplashScreen.this.finish();
             }

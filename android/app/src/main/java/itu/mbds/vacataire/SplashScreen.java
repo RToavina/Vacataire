@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import itu.mbds.vacataire.calendar.Calendar;
+import itu.mbds.vacataire.calendar.WeekViewActivity;
 
 public class SplashScreen extends AppCompatActivity {
 

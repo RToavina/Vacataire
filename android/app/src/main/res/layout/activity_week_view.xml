@@ -5,17 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".calendar.Calendar">
-
-    <com.google.android.material.button.MaterialButton
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Semaine"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:onClick="weeklyAction"
-        android:textSize="20sp"/>
+    tools:context=".calendar.WeekViewActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +19,7 @@
             app:icon="@drawable/retour"
             app:iconSize="15dp"
             android:layout_gravity="center"
-            android:onClick="previousMonthAction"/>
+            android:onClick="previousWeekAction"/>
 
         <TextView
             android:id="@+id/monthYearTV"
@@ -47,10 +37,10 @@
             app:icon="@drawable/suivant"
             app:iconSize="15dp"
             android:layout_gravity="center"
-            android:onClick="nextMonthAction"/>
+            android:onClick="nextWeekAction"/>
 
     </LinearLayout>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -117,6 +107,25 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calendarRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Emarger"
+        android:layout_gravity="center"
+        android:onClick="emargerAction"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
+
+    <ListView
+        android:id="@+id/eventListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"/>
+
+
 
 </LinearLayout>

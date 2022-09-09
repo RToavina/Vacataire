@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CalendarUtils {
     public static LocalDate selectedDate;
@@ -66,5 +67,10 @@ public class CalendarUtils {
         }
 
         return null;
+    }
+
+    public static List<LocalDate> getEmargement(String month) {
+        //TODO retrieve all emargement
+        return new ArrayList<>();
     }
 }

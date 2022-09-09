@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import itu.mbds.vacataire.R;
 import itu.mbds.vacataire.calendar.CalendarUtils;
@@ -45,11 +46,20 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
             holder.dayOfMonth.setText("");
         else {
             holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
-            if (date.equals(CalendarUtils.selectedDate))
+            List<LocalDate> dateList = new ArrayList<>();
+            //TODO mettre les dates en couleur
+            dateList.add(LocalDate.of(2022,9,8));
+            dateList.add(LocalDate.of(2022,9,18));
+            dateList.forEach(localDate -> {
+                if (date.equals(localDate)) {
+                    holder.parentView.setBackgroundColor(Color.argb(190,231, 76, 60));
+                }
+            });
+            if (date.equals(CalendarUtils.selectedDate)) {
                 holder.parentView.setBackgroundColor(Color.LTGRAY);
+            }
         }
 
-        //TODO mettre les dates en couleur
     }
 
     @Override

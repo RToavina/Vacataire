@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
+import itu.mbds.vacataire.calendar.CalendarUtils;
 import itu.mbds.vacataire.models.Emargement;
 import itu.mbds.vacataire.R;
 
@@ -30,10 +31,13 @@ public class EmargementAdapter extends ArrayAdapter<Emargement> {
         if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_cell, parent, false);
 
-        TextView eventCellTV = convertView.findViewById(R.id.eventCellTV);
+        TextView emargementMatiere = convertView.findViewById(R.id.emargementMatiere);
+        TextView emargementDate = convertView.findViewById(R.id.emargementDate);
 
-        String eventTitle = emargement.getMatiere();
-        eventCellTV.setText(eventTitle);
+        String matiere = emargement.getMatiere();
+        String date = CalendarUtils.formattedDate(emargement.getDate());
+        emargementMatiere.setText(matiere);
+        emargementDate.setText(date);
         return convertView;
     }
 }

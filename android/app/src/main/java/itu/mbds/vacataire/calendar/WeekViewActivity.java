@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import itu.mbds.vacataire.activity.EmargementActivity;
+import itu.mbds.vacataire.adapter.CalendarAdapter;
 import itu.mbds.vacataire.models.Emargement;
 import itu.mbds.vacataire.R;
 import itu.mbds.vacataire.adapter.EmargementAdapter;
@@ -48,7 +50,7 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
-        //setEventAdpater();
+        setEmargemntAdpater();
     }
 
 
@@ -66,6 +68,7 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
     public void onItemClick(int position, LocalDate date) {
         CalendarUtils.selectedDate = date;
         setWeekView();
+
     }
 
     @Override
@@ -76,13 +79,15 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
 
     private void setEmargemntAdpater() {
         ArrayList<Emargement> emargements = new ArrayList<>();
-        emargements.add(new Emargement("test"));
+        emargements.add(new Emargement("test", CalendarUtils.selectedDate));
+        emargements.add(new Emargement("test", CalendarUtils.selectedDate));
+        emargements.add(new Emargement("test", CalendarUtils.selectedDate));
         //TODO get tous les emargements via la date selectionnée
         EmargementAdapter adapter = new EmargementAdapter(getApplicationContext(), emargements);
         eventListView.setAdapter(adapter);
     }
 
     public void emargerAction(View view) {
-        startActivity(new Intent(this, Emargement.class));
+        startActivity(new Intent(this, EmargementActivity.class));
     }
 }

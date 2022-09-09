@@ -1,4 +1,4 @@
-package itu.mbds.vacataire.calendar;
+package itu.mbds.vacataire.adapter;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -12,8 +12,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import itu.mbds.vacataire.R;
+import itu.mbds.vacataire.calendar.CalendarUtils;
+import itu.mbds.vacataire.calendar.CalendarViewHolder;
 
-class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
+public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
     private final ArrayList<LocalDate> days;
     private final OnItemListener onItemListener;
 
@@ -46,6 +48,8 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
             if (date.equals(CalendarUtils.selectedDate))
                 holder.parentView.setBackgroundColor(Color.LTGRAY);
         }
+
+        //TODO mettre les dates en couleur
     }
 
     @Override

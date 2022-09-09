@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import itu.mbds.vacataire.R;
+import itu.mbds.vacataire.adapter.CalendarAdapter;
 
 public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {

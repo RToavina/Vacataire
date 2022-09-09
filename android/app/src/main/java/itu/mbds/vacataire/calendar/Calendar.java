@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import itu.mbds.vacataire.R;
+import itu.mbds.vacataire.adapter.CalendarAdapter;
 
 public class Calendar extends AppCompatActivity implements CalendarAdapter.OnItemListener {
     private TextView monthYearText;

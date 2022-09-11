@@ -1,4 +1,4 @@
-package itu.mbds.vacataire.activity;
+package itu.mbds.vacataire;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -7,9 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-
-import itu.mbds.vacataire.R;
-import itu.mbds.vacataire.calendar.Calendar;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -28,7 +25,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreenActivity.this, Calendar.class);
+                Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
                 startActivity(intent);
                 SplashScreenActivity.this.finish();
             }

@@ -7,4 +7,6 @@
     <string name="vendredi">VEN</string>
     <string name="samedi">SAM</string>
     <string name="dimanche">DIM</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

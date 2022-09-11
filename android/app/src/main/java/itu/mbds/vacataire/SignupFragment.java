@@ -1,24 +1,27 @@
-package itu.mbds.vacataire.activity;
+package itu.mbds.vacataire;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-import itu.mbds.vacataire.R;
 
-public class SignupActivity extends AppCompatActivity {
-
+public class SignupFragment extends Fragment {
     private TextInputLayout reg_name, reg_username, reg_email, reg_phoneNumber, reg_password;
     private Button regButton;
     private TextView matiere;
@@ -28,18 +31,32 @@ public class SignupActivity extends AppCompatActivity {
 
     //private FirebaseAuth mAuth;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+    public SignupFragment() {
+        // Required empty public constructor
+    }
 
-        reg_name = findViewById(R.id.reg_name);
-        reg_username = findViewById(R.id.reg_username);
-        reg_email = findViewById(R.id.reg_email);
-        reg_phoneNumber = findViewById(R.id.reg_phoneNumber);
-        reg_password = findViewById(R.id.reg_password);
-        regButton = findViewById(R.id.regButton);
-        matiere = findViewById(R.id.matiere);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_signup, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        reg_name = getView().findViewById(R.id.reg_name);
+        reg_username = getView().findViewById(R.id.reg_username);
+        reg_email = getView().findViewById(R.id.reg_email);
+        reg_phoneNumber = getView().findViewById(R.id.reg_phoneNumber);
+        reg_password = getView().findViewById(R.id.reg_password);
+        regButton = getView().findViewById(R.id.regButton);
+        matiere = getView().findViewById(R.id.matiere);
 
         selectedMatiere = new boolean[matiereArray.length];
 
@@ -50,7 +67,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // Initialize alert dialog
-                AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
                 // set title
                 builder.setTitle("Veuillez-choisir votre matière.");
@@ -129,16 +146,14 @@ public class SignupActivity extends AppCompatActivity {
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerUser();
+                //registerUser();
             }
         });
-
     }
 
-    /**
-     * Register User
-     */
-    private void registerUser() {
+
+
+    private boolean checkFormulaire() {
         //get all the values
         String name = reg_name.getEditText().getText().toString().trim();
         String username = reg_username.getEditText().getText().toString().trim();
@@ -149,48 +164,60 @@ public class SignupActivity extends AppCompatActivity {
         if (name.isEmpty()) {
             reg_name.setError("Nom obligatoire");
             reg_name.requestFocus();
-            return;
+            return false;
         }
 
         if (username.isEmpty()) {
             reg_username.setError("Identifiant obligatoire");
             reg_username.requestFocus();
-            return;
+             return false;
 
         }
 
         if (email.isEmpty()) {
             reg_email.setError("Email obligatoire");
             reg_email.requestFocus();
-            return;
+            return false;
 
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             reg_email.setError("Email obligatoire");
             reg_email.requestFocus();
-            return;
+            return false;
         }
 
         if (phoneNumber.isEmpty()) {
             reg_phoneNumber.setError("Numéro de téléphone obligatoire");
             reg_phoneNumber.requestFocus();
-            return;
+            return false;
         }
 
         if (password.isEmpty()) {
             reg_password.setError("Mot de passe obligatoire");
             reg_password.requestFocus();
-            return;
+            return false;
         }
 
         if (password.length() < 6) {
             reg_password.setError("Mot de passe trop court");
             reg_password.requestFocus();
-            return;
+            return false;
         }
 
-        System.out.println(email + " " + password);
+        //TODO check aussi les matieres
+
+        return true;
+    }
+
+    /**
+     * Register User
+     */
+    private void registerUser() {
+
+        if(checkFormulaire()) {
+            //TODO
+        }
 
         /*
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(Signup.this,new OnCompleteListener<AuthResult>() {
@@ -220,4 +247,6 @@ public class SignupActivity extends AppCompatActivity {
             }
         });*/
     }
+
+
 }

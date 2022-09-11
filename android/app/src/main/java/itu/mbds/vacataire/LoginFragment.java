@@ -1,42 +1,52 @@
-package itu.mbds.vacataire.activity;
+package itu.mbds.vacataire;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-import itu.mbds.vacataire.R;
-
-public class LoginActivity extends AppCompatActivity {
+public class LoginFragment extends Fragment {
 
     private ImageView logo;
     private TextView textWelcome,textSign;
     private Button signUp,connect;
     private TextInputLayout identifiant,password;
 
-    //private FirebaseAuth mAuth;
+
+    public LoginFragment() {
+        // Required empty public constructor
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_login);
+    }
 
-        logo = (ImageView) findViewById(R.id.logo);
-        textWelcome = (TextView) findViewById(R.id.texteWelcome);
-        textSign = (TextView) findViewById(R.id.textSign);
-        connect = (Button) findViewById(R.id.connect);
-        identifiant = (TextInputLayout) findViewById(R.id.identifiant);
-        password = (TextInputLayout) findViewById(R.id.password);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_login, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        logo = (ImageView) getView().findViewById(R.id.logo);
+        textWelcome = (TextView) getView().findViewById(R.id.texteWelcome);
+        textSign = (TextView) getView().findViewById(R.id.textSign);
+        connect = (Button) getView().findViewById(R.id.connect);
+        identifiant = (TextInputLayout) getView().findViewById(R.id.identifiant);
+        password = (TextInputLayout) getView().findViewById(R.id.password);
 
         //mAuth = FirebaseAuth.getInstance();
 
@@ -48,30 +58,39 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     *
-     */
-    private void userLogin() {
+    private boolean checkFormulaireValid() {
         String string_identifiant = identifiant.getEditText().getText().toString().trim();
         String string_password = password.getEditText().getText().toString().trim();
 
         if(string_identifiant.isEmpty()){
             identifiant.setError("Email is required");
             identifiant.requestFocus();
-            return;
+            return false;
         }
 
         if(string_password.isEmpty()){
             password.setError("Password is required");
             password.requestFocus();
-            return;
+            return false;
         }
 
         if(string_password.length() < 6){
             password.setError("Min Password length 6 characters");
             password.requestFocus();
-            return;
+            return false;
         }
+
+        return true;
+    }
+
+    /**
+     *
+     */
+    private void userLogin() {
+       if(checkFormulaireValid()) {
+
+           //TODO
+       }
 
         /*
         mAuth.signInWithEmailAndPassword(string_email,string_password).addOnCompleteListener(Login.this,new OnCompleteListener<AuthResult>() {

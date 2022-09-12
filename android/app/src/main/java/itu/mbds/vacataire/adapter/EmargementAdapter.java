@@ -33,11 +33,17 @@ public class EmargementAdapter extends ArrayAdapter<Emargement> {
 
         TextView emargementMatiere = convertView.findViewById(R.id.emargementMatiere);
         TextView emargementDate = convertView.findViewById(R.id.emargementDate);
+        TextView emargementHeureD = convertView.findViewById(R.id.emargement_heureDepart);
+        TextView emargementHeureA = convertView.findViewById(R.id.emargement_heureArrive);
 
         String matiere = emargement.getMatiere();
         String date = CalendarUtils.formattedDate(emargement.getDate());
+        String heureD = CalendarUtils.formattedTime(emargement.getHeureDepart());
+        String heureA = CalendarUtils.formattedTime(emargement.getHeureArrive());
         emargementMatiere.setText(matiere);
         emargementDate.setText(date);
+        emargementHeureD.setText(heureD);
+        emargementHeureA.setText(heureA);
         return convertView;
     }
 }

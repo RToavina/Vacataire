@@ -15,12 +15,33 @@
         android:textColor="@color/black"
         android:text="Event"/>
 
-    <TextView
-        android:id="@+id/emargementDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:gravity="center"
-        android:text="TextView" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/emargementDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:text="TextView" />
+        <TextView
+            android:id="@+id/emargement_heureDepart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:text="TextView" />
+        <TextView
+            android:id="@+id/emargement_heureArrive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:text="TextView" />
+    </LinearLayout>
+
+
 
 </LinearLayout>

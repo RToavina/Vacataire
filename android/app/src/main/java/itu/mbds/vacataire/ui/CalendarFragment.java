@@ -1,0 +1,113 @@
+package itu.mbds.vacataire.ui;
+
+import static itu.mbds.vacataire.calendar.CalendarUtils.daysInMonthArray;
+import static itu.mbds.vacataire.calendar.CalendarUtils.monthYearFromDate;
+
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import itu.mbds.vacataire.R;
+import itu.mbds.vacataire.adapter.CalendarAdapter;
+import itu.mbds.vacataire.calendar.CalendarUtils;
+
+public class CalendarFragment extends Fragment implements CalendarAdapter.OnItemListener {
+    private TextView monthYearText;
+    private RecyclerView calendarRecyclerView;
+
+    public CalendarFragment() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+        Button previousButton = (Button) view.findViewById(R.id.calendar_btn_previous);
+        Button nextButton = (Button) view.findViewById(R.id.calendar_btn_next);
+        Button weeklyButton = (Button) view.findViewById(R.id.calendar_btn_weekly);
+        FloatingActionButton emarger = (FloatingActionButton) view.findViewById(R.id.btn_plus_emarger);
+
+        previousButton.setOnClickListener(this::previousMonthAction);
+        nextButton.setOnClickListener(this::nextMonthAction);
+        weeklyButton.setOnClickListener(this::weeklyAction);
+        emarger.setOnClickListener(this::emargerAction);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initWidgets();
+        CalendarUtils.selectedDate = LocalDate.now();
+        setMonthView();
+    }
+
+    private void initWidgets() {
+        calendarRecyclerView = getView().findViewById(R.id.calendarRecyclerView);
+        monthYearText = getView().findViewById(R.id.monthYearTV);
+    }
+
+    private void setMonthView() {
+        monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
+        ArrayList<LocalDate> daysInMonth = daysInMonthArray(CalendarUtils.selectedDate);
+
+        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 7);
+        calendarRecyclerView.setLayoutManager(layoutManager);
+        calendarRecyclerView.setAdapter(calendarAdapter);
+    }
+
+    public void previousMonthAction(View view) {
+        CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusMonths(1);
+        setMonthView();
+    }
+
+    public void nextMonthAction(View view) {
+        CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusMonths(1);
+        setMonthView();
+    }
+
+    @Override
+    public void onItemClick(int position, LocalDate date) {
+        if (date != null) {
+            CalendarUtils.selectedDate = date;
+            setMonthView();
+        }
+    }
+
+    public void weeklyAction(View view) {
+        NavDirections action = CalendarFragmentDirections.actionCalendarFragmentToWeeklyFragment();
+        Navigation.findNavController(view).navigate(action);
+    }
+
+    public void emargerAction(View view) {
+        NavDirections action = CalendarFragmentDirections.actionCalendarFragmentToEmargementFragment();
+        Navigation.findNavController(view).navigate(action);
+    }
+
+}

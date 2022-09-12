@@ -1,4 +1,4 @@
-package itu.mbds.vacataire;
+package itu.mbds.vacataire.ui;
 
 import static itu.mbds.vacataire.calendar.CalendarUtils.daysInMonthArray;
 import static itu.mbds.vacataire.calendar.CalendarUtils.monthYearFromDate;
@@ -24,6 +24,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import itu.mbds.vacataire.R;
 import itu.mbds.vacataire.adapter.CalendarAdapter;
 import itu.mbds.vacataire.calendar.CalendarUtils;
 

@@ -1,4 +1,4 @@
-package itu.mbds.vacataire;
+package itu.mbds.vacataire.ui;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,6 +19,8 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import itu.mbds.vacataire.R;
 
 
 public class SignupFragment extends Fragment {
@@ -146,7 +148,7 @@ public class SignupFragment extends Fragment {
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //registerUser();
+                registerUser();
             }
         });
     }

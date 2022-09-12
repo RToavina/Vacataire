@@ -6,6 +6,8 @@ import com.itu.vacataire.services.Interfaces.IMatiereService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MatiereService implements IMatiereService {
 
@@ -15,6 +17,11 @@ public class MatiereService implements IMatiereService {
     @Override
     public Matiere getMatierebyId(Long id) {
         return matiereRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Matiere> all() {
+        return matiereRepository.findAll();
     }
 
     @Override

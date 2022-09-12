@@ -9,9 +9,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.WindowManager;
-
-import itu.mbds.vacataire.R;
 
 public class MainActivity extends AppCompatActivity {
 

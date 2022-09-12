@@ -1,4 +1,4 @@
-package itu.mbds.vacataire;
+package itu.mbds.vacataire.ui;
 
 import static itu.mbds.vacataire.calendar.CalendarUtils.daysInWeekArray;
 import static itu.mbds.vacataire.calendar.CalendarUtils.monthYearFromDate;
@@ -21,8 +21,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
+import itu.mbds.vacataire.R;
 import itu.mbds.vacataire.adapter.CalendarAdapter;
 import itu.mbds.vacataire.adapter.EmargementAdapter;
 import itu.mbds.vacataire.calendar.CalendarUtils;
@@ -106,9 +111,9 @@ public class WeeklyFragment extends Fragment implements CalendarAdapter.OnItemLi
 
     private void setEmargemntAdpater() {
         ArrayList<Emargement> emargements = new ArrayList<>();
-        emargements.add(new Emargement("test", CalendarUtils.selectedDate));
-        emargements.add(new Emargement("test", CalendarUtils.selectedDate));
-        emargements.add(new Emargement("test", CalendarUtils.selectedDate));
+        emargements.add(new Emargement("test", CalendarUtils.selectedDate, LocalTime.of(8,10), LocalTime.of(9,10)));
+        emargements.add(new Emargement("test", CalendarUtils.selectedDate, LocalTime.of(8,10), LocalTime.of(9,10)));
+        emargements.add(new Emargement("test", CalendarUtils.selectedDate, LocalTime.of(8,10), LocalTime.of(9,10)));
         //TODO get tous les emargements via la date selectionnée
         EmargementAdapter adapter = new EmargementAdapter(getContext(), emargements);
         eventListView.setAdapter(adapter);
@@ -116,6 +121,8 @@ public class WeeklyFragment extends Fragment implements CalendarAdapter.OnItemLi
 
     public void emargerAction(View view) {
         NavDirections action = WeeklyFragmentDirections.actionWeeklyFragmentToEmargementFragment();
-        Navigation.findNavController(view).navigate(action);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("selectedDate", CalendarUtils.selectedDate);
+        Navigation.findNavController(view).navigate(action.getActionId(), bundle);
     }
 }

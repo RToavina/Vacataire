@@ -15,13 +15,6 @@ public class Matiere {
     @NotNull
     private String nomMatiere;
 
-    @ManyToMany (mappedBy = "matieres")
-    private List<Professeur> professeurs;
-
-    public List<Professeur> getProfesseurs() {
-        return professeurs;
-    }
-
     public Matiere(){}
 
     public Matiere(String nomMatiere){

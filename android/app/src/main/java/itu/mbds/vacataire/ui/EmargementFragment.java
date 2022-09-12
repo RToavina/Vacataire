@@ -1,4 +1,4 @@
-package itu.mbds.vacataire;
+package itu.mbds.vacataire.ui;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -23,8 +23,12 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Locale;
+
+import itu.mbds.vacataire.R;
 
 public class EmargementFragment extends Fragment {
 
@@ -35,6 +39,8 @@ public class EmargementFragment extends Fragment {
     private TextInputLayout dateTextView, heureDepartView, heureArriveView;
     final Calendar myCalendar = Calendar.getInstance();
     final Calendar hour = Calendar.getInstance();
+
+    private LocalDate selectedDate;
 
 
     public EmargementFragment() {
@@ -60,6 +66,16 @@ public class EmargementFragment extends Fragment {
         matiere = getView().findViewById(R.id.matiere);
         heureDepartView = (TextInputLayout) getView().findViewById(R.id.heureDepart);
         heureArriveView = (TextInputLayout) getView().findViewById(R.id.heureArrive);
+        dateTextView = (TextInputLayout) getView().findViewById(R.id.dateEmargement);
+
+        selectedDate = (LocalDate) getArguments().getSerializable("selectedDate");
+        if (selectedDate != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+            myCalendar.set(Calendar.YEAR, selectedDate.getYear());
+            myCalendar.set(Calendar.MONTH, selectedDate.getMonthValue() - 1);
+            myCalendar.set(Calendar.DAY_OF_MONTH, selectedDate.getDayOfMonth());
+            dateTextView.getEditText().setText(selectedDate.format(formatter));
+        }
 
         initMatiereDropdown();
         initProfesseur();
@@ -91,7 +107,6 @@ public class EmargementFragment extends Fragment {
     }
 
     private void initDatePicker() {
-        dateTextView = (TextInputLayout) getView().findViewById(R.id.dateEmargement);
         Button button = (Button) getView().findViewById(R.id.btn_dateEmargement);
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -107,21 +122,22 @@ public class EmargementFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DatePickerDialog datePickerDialog =
-                new DatePickerDialog(getContext(),
-                        date, myCalendar.get(Calendar.YEAR),
-                        myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH));
+                        new DatePickerDialog(getContext(),
+                                date, myCalendar.get(Calendar.YEAR),
+                                myCalendar.get(Calendar.MONTH),
+                                myCalendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
             }
         });
     }
-    private void initHeurePicker(EditText editText, Button button){
+
+    private void initHeurePicker(EditText editText, Button button) {
         // Time Set Listener.
         TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
 
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                hour.set(Calendar.HOUR, hourOfDay);
+                hour.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 hour.set(Calendar.MINUTE, minute);
                 updateLabelHeure(editText);
             }
@@ -132,7 +148,7 @@ public class EmargementFragment extends Fragment {
                 // Create TimePickerDialog:
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
                         android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
-                        timeSetListener, hour.get(Calendar.HOUR),
+                        timeSetListener, hour.get(Calendar.HOUR_OF_DAY),
                         hour.get(Calendar.MINUTE), true);
                 timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 timePickerDialog.show();
@@ -140,14 +156,14 @@ public class EmargementFragment extends Fragment {
         });
     }
 
-    private void updateLabelHeure( EditText view) {
-        String myFormat = "hh:mm";
+    private void updateLabelHeure(EditText view) {
+        String myFormat = "kk:mm";
         SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.FRANCE);
         view.setText(dateFormat.format(hour.getTime()));
     }
 
     private void updateLabelDate() {
-        String myFormat = "MM/dd/yy";
+        String myFormat = "dd/MM/yy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.FRANCE);
         dateTextView.getEditText().setText(dateFormat.format(myCalendar.getTime()));
     }

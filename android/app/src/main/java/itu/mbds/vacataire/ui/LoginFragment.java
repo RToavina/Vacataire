@@ -1,18 +1,30 @@
-package itu.mbds.vacataire;
+package itu.mbds.vacataire.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.List;
+
+import itu.mbds.vacataire.R;
+import itu.mbds.vacataire.api.ApiEndpoint;
+import itu.mbds.vacataire.api.ClientApi;
+import itu.mbds.vacataire.models.Matiere;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginFragment extends Fragment {
 
@@ -56,6 +68,7 @@ public class LoginFragment extends Fragment {
                 userLogin();
             }
         });
+        test();
     }
 
     private boolean checkFormulaireValid() {
@@ -108,5 +121,29 @@ public class LoginFragment extends Fragment {
             }
         });
          */
+    }
+
+    private void test() {
+        ClientApi api = new ClientApi();
+        ApiEndpoint service = api.create();
+        Call<List<Matiere>> call = service.getMatieres();
+        call.enqueue(new Callback<List<Matiere>>() {
+            @Override
+            public void onResponse(Call<List<Matiere>> call, Response<List<Matiere>> response) {
+                List<Matiere> matieres = response.body();
+                String s = "";
+                for (Matiere m : matieres) {
+                    s+= " "+ m.nomMatiere;
+                }
+                Toast toast = Toast.makeText(getContext(), s, Toast.LENGTH_SHORT);
+                toast.show();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Matiere>> call, Throwable t) {
+                Log.e("err", t.getLocalizedMessage());
+            }
+        });
     }
 }

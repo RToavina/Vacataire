@@ -7,23 +7,23 @@
 
     <fragment
         android:id="@+id/signupFragment"
-        android:name="itu.mbds.vacataire.SignupFragment"
+        android:name="itu.mbds.vacataire.ui.SignupFragment"
         android:label="fragment_signup"
         tools:layout="@layout/fragment_signup" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="itu.mbds.vacataire.LoginFragment"
+        android:name="itu.mbds.vacataire.ui.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_calendarFragment"
             app:destination="@id/calendarFragment" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"
-        android:name="itu.mbds.vacataire.CalendarFragment"
+        android:name="itu.mbds.vacataire.ui.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" >
+        tools:layout="@layout/fragment_calendar">
         <action
             android:id="@+id/action_calendarFragment_to_weeklyFragment"
             app:destination="@id/weeklyFragment" />
@@ -33,16 +33,16 @@
     </fragment>
     <fragment
         android:id="@+id/weeklyFragment"
-        android:name="itu.mbds.vacataire.WeeklyFragment"
+        android:name="itu.mbds.vacataire.ui.WeeklyFragment"
         android:label="fragment_weekly"
-        tools:layout="@layout/fragment_weekly" >
+        tools:layout="@layout/fragment_weekly">
         <action
             android:id="@+id/action_weeklyFragment_to_emargementFragment"
             app:destination="@id/emargementFragment" />
     </fragment>
     <fragment
         android:id="@+id/emargementFragment"
-        android:name="itu.mbds.vacataire.EmargementFragment"
+        android:name="itu.mbds.vacataire.ui.EmargementFragment"
         android:label="fragment_emargement"
         tools:layout="@layout/fragment_emargement" />
 </navigation>

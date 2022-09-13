@@ -1,21 +1,27 @@
 package itu.mbds.vacataire;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import itu.mbds.vacataire.models.UserViewModel;
+
 public class MainActivity extends AppCompatActivity {
+    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.setContext(this);
     }
 
     @Override
@@ -42,4 +48,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
 }

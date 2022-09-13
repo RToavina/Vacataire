@@ -1,5 +1,8 @@
 package itu.mbds.vacataire.ui;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,10 +16,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.SavedStateHandle;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -26,17 +34,19 @@ import itu.mbds.vacataire.api.ClientApi;
 import itu.mbds.vacataire.models.Matiere;
 import itu.mbds.vacataire.models.User;
 import itu.mbds.vacataire.models.UserRequest;
+import itu.mbds.vacataire.models.UserViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginFragment extends Fragment {
+    public static String LOGIN_SUCCESSFUL = "LOGIN_SUCCESSFUL";
 
     private ImageView logo;
     private TextView textWelcome, textSign;
     private Button signUp, connect;
     private TextInputLayout identifiant, password;
-
+    private UserViewModel userViewModel;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -57,15 +67,21 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+
         logo = (ImageView) getView().findViewById(R.id.logo);
         textWelcome = (TextView) getView().findViewById(R.id.texteWelcome);
         textSign = (TextView) getView().findViewById(R.id.textSign);
         connect = (Button) getView().findViewById(R.id.connect);
         identifiant = (TextInputLayout) getView().findViewById(R.id.identifiant);
         password = (TextInputLayout) getView().findViewById(R.id.password);
-
-        //mAuth = FirebaseAuth.getInstance();
-
+        final NavController navController = Navigation.findNavController(view);
+        userViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
+            if (user != null) {
+                navController.navigate(R.id.calendarFragment);
+            }
+        });
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +131,12 @@ public class LoginFragment extends Fragment {
                 public void onResponse(Call<User> call, Response<User> response) {
                     if (response.isSuccessful()) {
                         User u = response.body();
+                        SharedPreferences mPrefs = getContext().getSharedPreferences("userLogin", MODE_PRIVATE);
+                        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+                        Gson gson = new Gson();
+                        String json = gson.toJson(u);
+                        prefsEditor.putString("user", json);
+                        prefsEditor.commit();
                         toCalendar(getView());
                     }else {
                         Toast.makeText(getContext(), "Failed to login please check your credentials", Toast.LENGTH_LONG).show();

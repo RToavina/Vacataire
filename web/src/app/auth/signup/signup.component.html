@@ -1,1 +1,46 @@
-<p>signup works!</p>
+<div class="div">
+
+  <img src="assets/logo.png" class="img">
+
+  <h2>Inscription</h2>
+  <form class="container">
+
+    <mat-form-field>
+      <mat-label>Nom</mat-label>
+      <input matInput formControlName='nom' type="text">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName='email' type="email">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Numéro de téléphone</mat-label>
+      <input matInput formControlName='numeroTel' type="tel">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Identifiant</mat-label>
+      <input matInput formControlName='identifiant' type="text">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Mot de passe</mat-label>
+      <input matInput formControlName='mdp' type="password">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Matières</mat-label>
+      <mat-select>
+        <mat-option value="svt">SVT</mat-option>
+        <mat-option value="pc">PC</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="buttons">
+      <button mat-raised-button type="submit" color="primary">Inscription</button>
+    </div>
+
+  </form>
+</div>

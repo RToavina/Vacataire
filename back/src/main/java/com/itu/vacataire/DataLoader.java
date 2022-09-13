@@ -1,7 +1,10 @@
 package com.itu.vacataire;
 
+import com.itu.vacataire.model.ERole;
 import com.itu.vacataire.model.Matiere;
 import com.itu.vacataire.model.Professeur;
+import com.itu.vacataire.model.Role;
+import com.itu.vacataire.repositories.RoleRepository;
 import com.itu.vacataire.services.MatiereService;
 import com.itu.vacataire.services.ProfesseurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,9 @@ public class DataLoader implements ApplicationRunner {
     private ProfesseurService professeurService;
 
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     private Matiere svt = new Matiere("SVT");
     private Matiere pc = new Matiere("PC");
     private Matiere info = new Matiere("INFO");
@@ -42,9 +48,15 @@ public class DataLoader implements ApplicationRunner {
         prof3 = professeurService.addProfesseur(new Professeur("nom3","prenom3", List.of(info),1250));
     }
 
+    public void initRole() {
+        this.roleRepository.save(new Role(ERole.ROLE_ADMIN));
+        this.roleRepository.save(new Role(ERole.ROLE_USER));
+    }
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         this.initMatiere();
         this.initProfesseur();
+        this.initRole();
     }
 }

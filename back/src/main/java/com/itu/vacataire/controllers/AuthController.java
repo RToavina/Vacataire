@@ -53,13 +53,15 @@ public class AuthController {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
-
-        UserInfoResponse response = new UserInfoResponse(userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
+        User u = userRepository.findByUsername(userDetails.getUsername()).orElse(null);
+        UserInfoResponse userResponse = new UserInfoResponse(u.getId(),
+                u.getUsername(),
+                u.getEmail(),
+                u.getNom(),
+                u.getPrenom(),
                 roles);
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .body(response);
+                .body(userResponse);
     }
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {

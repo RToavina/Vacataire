@@ -5,6 +5,15 @@ import java.util.Set;
 
 public class SignupRequest {
 
+    public SignupRequest(String username, String email, String password, String nom, String prenom, Set<String> roles) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.roles = roles;
+    }
+
     private String username;
     private String email;
     private String password;

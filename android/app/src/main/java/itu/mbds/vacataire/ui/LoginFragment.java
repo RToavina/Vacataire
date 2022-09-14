@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,7 +18,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.MenuHost;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -40,8 +46,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginFragment extends Fragment {
-    public static String LOGIN_SUCCESSFUL = "LOGIN_SUCCESSFUL";
-
     private ImageView logo;
     private TextView textWelcome, textSign;
     private Button signUp, connect;
@@ -67,7 +71,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
         logo = (ImageView) getView().findViewById(R.id.logo);
@@ -131,13 +134,7 @@ public class LoginFragment extends Fragment {
                 public void onResponse(Call<User> call, Response<User> response) {
                     if (response.isSuccessful()) {
                         User u = response.body();
-                        SharedPreferences mPrefs = getContext().getSharedPreferences("userLogin", MODE_PRIVATE);
-                        SharedPreferences.Editor prefsEditor = mPrefs.edit();
-                        Gson gson = new Gson();
-                        String json = gson.toJson(u);
-                        prefsEditor.putString("user", json);
-                        prefsEditor.commit();
-                        toCalendar(getView());
+                        userViewModel.setUser(u);
                     }else {
                         Toast.makeText(getContext(), "Failed to login please check your credentials", Toast.LENGTH_LONG).show();
                     }
@@ -150,12 +147,6 @@ public class LoginFragment extends Fragment {
             });
         }
     }
-
-    private void toCalendar(View view) {
-        NavDirections action = LoginFragmentDirections.actionLoginFragmentToCalendarFragment();
-        Navigation.findNavController(view).navigate(action);
-    }
-
         /*
         mAuth.signInWithEmailAndPassword(string_email,string_password).addOnCompleteListener(Login.this,new OnCompleteListener<AuthResult>() {
             @Override

@@ -1,23 +1,27 @@
-<div class="div">
-  <img src="assets/logo.png" class="img">
 
-  <h2>Bienvenue sur VACATAIRE</h2>
-  <h4>Connectez-vous pour continuer</h4>
+<div class="container">
+  <div class="login_container">
+    <img src="assets/img/logo.png" class="img">
 
-  <form class="container">
-    <mat-form-field appearance="outline">
-      <mat-label>Identifiant</mat-label>
-      <input matInput formControlName='identifiant'>
-    </mat-form-field>
+    <h2>Bienvenue sur VACATAIRE</h2>
+    <h4>Connectez-vous pour continuer</h4>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Mot de passe</mat-label>
-      <input matInput type="password" formControlName='password'>
-    </mat-form-field>
+    <form class="form_container">
+      <mat-form-field appearance="outline">
+        <mat-label>Identifiant</mat-label>
+        <input matInput formControlName='identifiant'>
+      </mat-form-field>
 
-    <div class="buttons">
-      <button mat-raised-button type="submit" color="primary">Connexion</button>
-    </div>
-  </form>
+      <mat-form-field appearance="outline">
+        <mat-label>Mot de passe</mat-label>
+        <input matInput type="password" formControlName='password'>
+      </mat-form-field>
+
+      <div class="buttons">
+        <button mat-raised-button type="submit" color="primary">Connexion</button>
+      </div>
+    </form>
+
+  </div>
 
 </div>

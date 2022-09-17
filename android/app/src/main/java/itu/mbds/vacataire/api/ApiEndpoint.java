@@ -3,6 +3,8 @@ package itu.mbds.vacataire.api;
 import java.util.List;
 
 import itu.mbds.vacataire.models.Matiere;
+import itu.mbds.vacataire.models.User;
+import itu.mbds.vacataire.models.UserRequest;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.Body;
@@ -26,5 +28,7 @@ public interface ApiEndpoint {
     @DELETE("matiere/{id}")
     Call<Response> deleteMatiere(@Path("id") Long id);
 
-    //
+    //Authentication
+    @POST("auth/signin")
+    Call<User> authenticateUser(@Body UserRequest user);
 }

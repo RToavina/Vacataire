@@ -4,20 +4,23 @@ import static itu.mbds.vacataire.calendar.CalendarUtils.daysInMonthArray;
 import static itu.mbds.vacataire.calendar.CalendarUtils.monthYearFromDate;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.SavedStateHandle;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavBackStackEntry;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -27,10 +30,12 @@ import java.util.ArrayList;
 import itu.mbds.vacataire.R;
 import itu.mbds.vacataire.adapter.CalendarAdapter;
 import itu.mbds.vacataire.calendar.CalendarUtils;
+import itu.mbds.vacataire.models.UserViewModel;
 
 public class CalendarFragment extends Fragment implements CalendarAdapter.OnItemListener {
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
+    private UserViewModel userViewModel;
 
     public CalendarFragment() {
         // Required empty public constructor
@@ -62,6 +67,14 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        final NavController navController = Navigation.findNavController(view);
+        userViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
+            if (user == null) {
+                navController.navigate(R.id.loginFragment);
+            }
+        });
+
         initWidgets();
         CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();

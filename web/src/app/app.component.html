@@ -1,1 +1,28 @@
-<router-outlet></router-outlet>
+<mat-toolbar color="primary">
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" >
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item [routerLink]="['/signup']">
+      <mat-icon>add</mat-icon>
+      <span>Inscription</span>
+    </button>
+
+    <button mat-menu-item [routerLink]="['/login']">
+      <mat-icon>logout</mat-icon>
+      <span>Déconnexion</span>
+    </button>
+
+    <button mat-menu-item>
+      <mat-icon>calendar_month</mat-icon>
+      <span>Calendrier</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+
+

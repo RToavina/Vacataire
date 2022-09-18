@@ -3,7 +3,6 @@ package com.itu.vacataire.payload.response;
 import java.util.List;
 
 public class UserInfoResponse {
-    private Long id;
     private String username;
     private String email;
 
@@ -13,17 +12,12 @@ public class UserInfoResponse {
 
     private List<String> roles;
 
-    public UserInfoResponse(Long id, String username, String email, String nom, String prenom, List<String> roles) {
-        this.id = id;
+    public UserInfoResponse(String username, String email, String nom, String prenom, List<String> roles) {
         this.username = username;
         this.email = email;
         this.nom = nom;
         this.prenom = prenom;
         this.roles = roles;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getUsername() {

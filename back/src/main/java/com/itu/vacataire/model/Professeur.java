@@ -2,6 +2,7 @@ package com.itu.vacataire.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Professeur {
@@ -9,42 +10,43 @@ public class Professeur {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    private String nom;
-
-    private String prenom;
-
+    @OneToOne(fetch = FetchType.EAGER)
+    private User identifiant;
     @ManyToMany (fetch = FetchType.EAGER)
-    private List<Matiere> matieres;
+    private Set<Matiere> matieres;
 
     private Double tauxHoraire;
 
     public Professeur(){}
 
-    public Professeur(String nom, String prenom, List<Matiere> matieres, double tauxHoraire){
-        this.nom = nom;
-        this.prenom = prenom;
+    public Professeur(User identifiant, Set<Matiere> matieres, double tauxHoraire){
+        this.identifiant = identifiant;
         this.matieres = matieres;
         this.tauxHoraire = tauxHoraire;
+    }
+
+    public Professeur(User identifiant, Set<Matiere> matieres){
+        this.identifiant = identifiant;
+        this.matieres = matieres;
     }
 
     public Long getId() {return id;}
 
     public void setId(Long id) {this.id = id;}
 
-    public String getNom() {return nom;}
+    public Set<Matiere> getMatieres() {return matieres;}
 
-    public void setNom(String nom) {this.nom = nom;}
-
-    public String getPrenom() {return prenom;}
-
-    public void setPrenom(String prenom) {this.prenom = prenom;}
-
-    public List<Matiere> getMatieres() {return matieres;}
-
-    public void setMatieres(List<Matiere> matieres) {this.matieres = matieres;}
+    public void setMatieres(Set<Matiere> matieres) {this.matieres = matieres;}
 
     public Double getTauxHoraire() {return tauxHoraire;}
 
     public void setTauxHoraire(Double tauxHoraire) {this.tauxHoraire = tauxHoraire;}
+
+    public User getIdentifiant() {
+        return identifiant;
+    }
+
+    public void setIdentifiant(User identifiant) {
+        this.identifiant = identifiant;
+    }
 }

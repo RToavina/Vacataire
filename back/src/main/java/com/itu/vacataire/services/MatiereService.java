@@ -20,6 +20,11 @@ public class MatiereService implements IMatiereService {
     }
 
     @Override
+    public Matiere findMatiereByName(String name) {
+        return matiereRepository.findMatiereByNomMatiere(name).orElse(null);
+    }
+
+    @Override
     public List<Matiere> all() {
         return matiereRepository.findAll();
     }

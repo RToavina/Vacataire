@@ -1,9 +1,6 @@
 package com.itu.vacataire;
 
-import com.itu.vacataire.model.ERole;
-import com.itu.vacataire.model.Matiere;
-import com.itu.vacataire.model.Professeur;
-import com.itu.vacataire.model.Role;
+import com.itu.vacataire.model.*;
 import com.itu.vacataire.payload.request.SignupRequest;
 import com.itu.vacataire.repositories.RoleRepository;
 import com.itu.vacataire.services.AuthService;
@@ -15,8 +12,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -42,6 +37,7 @@ public class DataLoader implements ApplicationRunner {
     private Matiere info = new Matiere("INFO");
 
     private Professeur prof1, prof2, prof3;
+    private User user1, user2, user3;
 
     public void initMatiere() {
         svt = matiereService.addMatiere(svt);
@@ -49,15 +45,37 @@ public class DataLoader implements ApplicationRunner {
         info = matiereService.addMatiere(info);
     }
 
-    public void initProfesseur() {
-        prof1 = professeurService.addProfesseur(new Professeur("nom1", "prenom1", List.of(svt, pc), 1000));
-        prof2 = professeurService.addProfesseur(new Professeur("nom2", "prenom2", List.of(pc), 1500));
-        prof3 = professeurService.addProfesseur(new Professeur("nom3", "prenom3", List.of(info), 1250));
+    public void initUser() {
+        user1 = this.authService.registerUser(new SignupRequest("user1",
+                "user1@test.com",
+                "user1",
+                "User",
+                "user1",
+                "00000000",null
+              ));
+        user2 = this.authService.registerUser(new SignupRequest("user2",
+                "user2@test.com",
+                "user2",
+                "User",
+                "user2",
+                "00000000",null
+        ));
+        user3 = this.authService.registerUser(new SignupRequest("user3",
+                "user3@test.com",
+                "user3",
+                "User",
+                "user3",
+                "00000000",null
+        ));
+        prof1 = professeurService.addProfesseur(new Professeur( user1, Set.of(svt, pc), 1000));
+        prof2 = professeurService.addProfesseur(new Professeur(user2, Set.of(pc), 1500));
+        prof3 = professeurService.addProfesseur(new Professeur(user3, Set.of(info), 1250));
     }
 
     public void initRole() {
         this.roleRepository.save(new Role(ERole.ROLE_ADMIN));
         this.roleRepository.save(new Role(ERole.ROLE_USER));
+        this.roleRepository.save(new Role(ERole.ROLE_MODERATOR));
     }
 
     public void initAdminUser() {
@@ -66,14 +84,15 @@ public class DataLoader implements ApplicationRunner {
                 "admin",
                 "Admin",
                 "admin",
+                "00000000",
                 Set.of("admin")));
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        this.initMatiere();
-        this.initProfesseur();
         this.initRole();
         this.initAdminUser();
+        this.initMatiere();
+        this.initUser();
     }
 }

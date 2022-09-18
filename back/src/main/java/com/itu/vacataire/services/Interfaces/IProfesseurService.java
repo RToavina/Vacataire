@@ -10,8 +10,6 @@ public interface IProfesseurService {
 
     Professeur getProfesseurById(Long id);
 
-    Professeur getByNomAndPrenom(String nom, String prenom);
-
     Professeur addProfesseur(Professeur professeur);
 
     void deleteProfesseurById(Long id);

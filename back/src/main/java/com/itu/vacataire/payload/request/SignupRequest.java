@@ -1,18 +1,11 @@
 package com.itu.vacataire.payload.request;
 
+import com.itu.vacataire.model.Matiere;
+
 import java.util.List;
 import java.util.Set;
 
 public class SignupRequest {
-
-    public SignupRequest(String username, String email, String password, String nom, String prenom, Set<String> roles) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.roles = roles;
-    }
 
     private String username;
     private String email;
@@ -20,7 +13,28 @@ public class SignupRequest {
     private String nom;
     private String prenom;
 
+    private String phoneNumber;
     private Set<String> roles;
+
+    private List<String> matieres;
+
+    public SignupRequest(String username, String email, String password, String nom, String prenom, String phoneNumber, Set<String> roles) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.phoneNumber = phoneNumber;
+        this.roles = roles;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     public String getUsername() {
         return username;
@@ -70,4 +84,11 @@ public class SignupRequest {
         this.roles = roles;
     }
 
+    public List<String> getMatieres() {
+        return matieres;
+    }
+
+    public void setMatieres(List<String> matieres) {
+        this.matieres = matieres;
+    }
 }

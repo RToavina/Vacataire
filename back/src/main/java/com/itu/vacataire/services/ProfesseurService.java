@@ -19,11 +19,6 @@ public class ProfesseurService implements IProfesseurService {
         return professeurRepository.findAll();
     }
 
-    @Override
-    public Professeur getByNomAndPrenom(String nom, String prenom) {
-        return professeurRepository.findFirstByNomAndPrenom(nom, prenom);
-    }
-
     public Professeur getProfesseurById(Long id){
         return professeurRepository.findById(id).orElse(null);
     }

@@ -32,6 +32,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 
+import java.net.CookieManager;
 import java.util.List;
 
 import itu.mbds.vacataire.R;
@@ -109,12 +110,6 @@ public class LoginFragment extends Fragment {
             return false;
         }
 
-//        if(string_password.length() < 6){
-//            password.setError("Min Password length 6 characters");
-//            password.requestFocus();
-//            return false;
-//        }
-
         return true;
     }
 
@@ -126,7 +121,7 @@ public class LoginFragment extends Fragment {
             String identifiant = this.identifiant.getEditText().getText().toString().trim();
             String password = this.password.getEditText().getText().toString().trim();
             UserRequest req = new UserRequest(identifiant, password);
-            ClientApi api = new ClientApi();
+            ClientApi api = new ClientApi(getContext());
             ApiEndpoint service = api.create();
             Call<User> call = service.authenticateUser(req);
             call.enqueue(new Callback<User>() {

@@ -11,16 +11,19 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import itu.mbds.vacataire.models.MatiereViewModel;
 import itu.mbds.vacataire.models.UserViewModel;
 
 public class MainActivity extends AppCompatActivity {
     private UserViewModel userViewModel;
+    private MatiereViewModel matiereViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        matiereViewModel = new ViewModelProvider(this).get(MatiereViewModel.class);
     }
 
     @Override
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 invalidateOptionsMenu();
                 return true;
             case R.id.navigation_logout:
-                userViewModel.clearUser();
+                userViewModel.signout();
                 navController.navigate(R.id.loginFragment);
                 invalidateOptionsMenu();
                 return true;

@@ -7,6 +7,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -14,24 +17,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import itu.mbds.vacataire.R;
+import itu.mbds.vacataire.api.ApiEndpoint;
+import itu.mbds.vacataire.api.ClientApi;
+import itu.mbds.vacataire.models.Matiere;
+import itu.mbds.vacataire.models.MatiereViewModel;
+import itu.mbds.vacataire.models.MessageResponse;
+import itu.mbds.vacataire.models.SignupRequest;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class SignupFragment extends Fragment {
-    private TextInputLayout reg_name, reg_username, reg_email, reg_phoneNumber, reg_password;
+    private MatiereViewModel matiereViewModel;
+    private TextInputLayout reg_name,reg_prenom, reg_username, reg_email, reg_phoneNumber, reg_password;
     private Button regButton;
     private TextView matiere;
     boolean[] selectedMatiere;
     ArrayList<Integer> matiereList = new ArrayList<>();
-    String[] matiereArray = {"Français", "Mathématiques", "SVT", "Histoire", "Géographie", "EMC"};
+    String[] matieres;
 
-    //private FirebaseAuth mAuth;
 
     public SignupFragment() {
         // Required empty public constructor
@@ -52,7 +67,9 @@ public class SignupFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        matiereViewModel = new ViewModelProvider(this).get(MatiereViewModel.class);
         reg_name = getView().findViewById(R.id.reg_name);
+        reg_prenom = getView().findViewById(R.id.reg_prenom);
         reg_username = getView().findViewById(R.id.reg_username);
         reg_email = getView().findViewById(R.id.reg_email);
         reg_phoneNumber = getView().findViewById(R.id.reg_phoneNumber);
@@ -60,9 +77,23 @@ public class SignupFragment extends Fragment {
         regButton = getView().findViewById(R.id.regButton);
         matiere = getView().findViewById(R.id.matiere);
 
-        selectedMatiere = new boolean[matiereArray.length];
+        matiereViewModel.getMatieres().observe(getViewLifecycleOwner(), matieres -> {
+            if (matieres != null) {
+               this.matieres = matieres.stream().map(m -> m.nomMatiere).toArray(String[]::new);
+                selectedMatiere = new boolean[this.matieres.length];
+                initMatiere();
+            }
+        });
 
-        //mAuth = FirebaseAuth.getInstance();
+        regButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registerUser();
+            }
+        });
+    }
+
+    private void initMatiere() {
 
         matiere.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,12 +103,12 @@ public class SignupFragment extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
                 // set title
-                builder.setTitle("Veuillez-choisir votre matière.");
+                builder.setTitle("Veuillez-choisir vos matières.");
 
                 // set dialog non cancelable
                 builder.setCancelable(false);
 
-                builder.setMultiChoiceItems(matiereArray, selectedMatiere, new DialogInterface.OnMultiChoiceClickListener() {
+                builder.setMultiChoiceItems(matieres, selectedMatiere, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i, boolean b) {
                         // check condition
@@ -95,7 +126,7 @@ public class SignupFragment extends Fragment {
                     }
                 });
 
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Confirmer", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // Initialize string builder
@@ -103,7 +134,7 @@ public class SignupFragment extends Fragment {
                         // use for loop
                         for (int j = 0; j < matiereList.size(); j++) {
                             // concat array value
-                            stringBuilder.append(matiereArray[matiereList.get(j)]);
+                            stringBuilder.append(matieres[matiereList.get(j)]);
                             // check condition
                             if (j != matiereList.size() - 1) {
                                 // When j value  not equal
@@ -117,7 +148,7 @@ public class SignupFragment extends Fragment {
                     }
                 });
 
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // dismiss dialog
@@ -125,7 +156,7 @@ public class SignupFragment extends Fragment {
                     }
                 });
 
-                builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+                builder.setNeutralButton("Effacer tout", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // use for loop
@@ -143,21 +174,13 @@ public class SignupFragment extends Fragment {
                 builder.show();
             }
         });
-
-
-        regButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registerUser();
-            }
-        });
     }
-
 
 
     private boolean checkFormulaire() {
         //get all the values
         String name = reg_name.getEditText().getText().toString().trim();
+        String prenom = reg_name.getEditText().getText().toString().trim();
         String username = reg_username.getEditText().getText().toString().trim();
         String email = reg_email.getEditText().getText().toString().trim();
         String phoneNumber = reg_phoneNumber.getEditText().getText().toString().trim();
@@ -166,6 +189,12 @@ public class SignupFragment extends Fragment {
         if (name.isEmpty()) {
             reg_name.setError("Nom obligatoire");
             reg_name.requestFocus();
+            return false;
+        }
+
+        if (prenom.isEmpty()) {
+            reg_prenom.setError("Prénom obligatoire");
+            reg_prenom.requestFocus();
             return false;
         }
 
@@ -207,7 +236,11 @@ public class SignupFragment extends Fragment {
             return false;
         }
 
-        //TODO check aussi les matieres
+        if(matiereList.size() < 1) {
+            matiere.setError("Matière obligatoire");
+            matiere.requestFocus();
+            return false;
+        }
 
         return true;
     }
@@ -216,39 +249,38 @@ public class SignupFragment extends Fragment {
      * Register User
      */
     private void registerUser() {
-
         if(checkFormulaire()) {
-            //TODO
-        }
-
-        /*
-        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(Signup.this,new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                System.out.println("Authentification ...");
-                if(task.isSuccessful()){
-                    UserHelperClass helperClass = new UserHelperClass(name,username,email,phoneNumber,password);
-                    FirebaseDatabase.getInstance().getReference("users").child(phoneNumber).setValue(helperClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            System.out.println("Database find Success ...");
-                            if(task.isSuccessful()){
-                                Toast.makeText(Signup.this,"Register OK",Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(Signup.this,Login.class);
-                                startActivity(intent);
-                                Signup.this.finish();
-                            }else {
-                                Toast.makeText(Signup.this,"Register Fail",Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-
-                }else{
-                    Toast.makeText(Signup.this,"Register Fail",Toast.LENGTH_LONG).show();
+            ClientApi api = new ClientApi(getContext());
+            ApiEndpoint service = api.create();
+            Call<MessageResponse> call = service.signup(getSignupInfo());
+            call.enqueue(new Callback<MessageResponse>() {
+                @Override
+                public void onResponse(Call<MessageResponse> call, Response<MessageResponse> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(getContext(), "Utilisateur créé", Toast.LENGTH_LONG).show();
+                        NavDirections action = SignupFragmentDirections.actionSignupFragmentToLoginFragment();
+                        Navigation.findNavController(getView()).navigate(action);
+                    }
                 }
-            }
-        });*/
+
+                @Override
+                public void onFailure(Call<MessageResponse> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
+
+    private SignupRequest getSignupInfo() {
+        String name = reg_name.getEditText().getText().toString().trim();
+        String prenom = reg_prenom.getEditText().getText().toString().trim();
+        String username = reg_username.getEditText().getText().toString().trim();
+        String email = reg_email.getEditText().getText().toString().trim();
+        String phoneNumber = reg_phoneNumber.getEditText().getText().toString().trim();
+        String password = reg_password.getEditText().getText().toString();
+        List<String> matieres = matiereList.stream().map(i -> this.matieres[i]).collect(Collectors.toList());
+        return new SignupRequest(username, email, password, name,prenom, phoneNumber, matieres);
+    }
 
 }

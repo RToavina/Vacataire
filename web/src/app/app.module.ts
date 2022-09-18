@@ -20,9 +20,6 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { CalendarComponent } from './calendar/calendar.component';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,

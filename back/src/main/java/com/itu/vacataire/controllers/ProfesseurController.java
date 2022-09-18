@@ -28,7 +28,7 @@ public class ProfesseurController {
 
     //Recuperer un professeur selon son id
     @GetMapping(value = "/professeur/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Professeur> findById(@PathVariable Long id){
+    ResponseEntity<Professeur> findById(@PathVariable String id){
         return new ResponseEntity<>(professeurService.getProfesseurById(id),HttpStatus.FOUND);
     }
 
@@ -40,7 +40,7 @@ public class ProfesseurController {
 
     //Supprimer un professeur
     @DeleteMapping(value="/professeur/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity delete(@PathVariable Long id){
+    ResponseEntity delete(@PathVariable String id){
         professeurService.deleteProfesseurById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

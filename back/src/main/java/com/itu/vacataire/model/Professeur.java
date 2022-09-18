@@ -1,16 +1,14 @@
 package com.itu.vacataire.model;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 public class Professeur {
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @OneToOne(fetch = FetchType.EAGER)
+    private String username;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @MapsId
     private User identifiant;
     @ManyToMany (fetch = FetchType.EAGER)
     private Set<Matiere> matieres;
@@ -30,10 +28,6 @@ public class Professeur {
         this.matieres = matieres;
     }
 
-    public Long getId() {return id;}
-
-    public void setId(Long id) {this.id = id;}
-
     public Set<Matiere> getMatieres() {return matieres;}
 
     public void setMatieres(Set<Matiere> matieres) {this.matieres = matieres;}
@@ -48,5 +42,13 @@ public class Professeur {
 
     public void setIdentifiant(User identifiant) {
         this.identifiant = identifiant;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

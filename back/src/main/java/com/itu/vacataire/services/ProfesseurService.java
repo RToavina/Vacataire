@@ -19,7 +19,7 @@ public class ProfesseurService implements IProfesseurService {
         return professeurRepository.findAll();
     }
 
-    public Professeur getProfesseurById(Long id){
+    public Professeur getProfesseurById(String id){
         return professeurRepository.findById(id).orElse(null);
     }
 
@@ -32,7 +32,7 @@ public class ProfesseurService implements IProfesseurService {
     }
 
     @Override
-    public void deleteProfesseurById(Long id) {
+    public void deleteProfesseurById(String id) {
         professeurRepository.deleteById(id);
     }
 

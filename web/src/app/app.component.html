@@ -14,7 +14,7 @@
       <span>Déconnexion</span>
     </button>
 
-    <button mat-menu-item>
+    <button mat-menu-item [routerLink]="['/calendar']">
       <mat-icon>calendar_month</mat-icon>
       <span>Calendrier</span>
     </button>
@@ -24,5 +24,3 @@
 <div class="container">
   <router-outlet></router-outlet>
 </div>
-
-

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +18,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { CalendarComponent } from './calendar/calendar.component';
 
 
 
@@ -28,6 +29,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     LoginComponent,
     SignupComponent,
     EmargementComponent,
+    CalendarComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +46,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatToolbarModule
   ],
   providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

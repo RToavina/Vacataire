@@ -4,6 +4,8 @@ import java.util.List;
 
 import itu.mbds.vacataire.models.Matiere;
 import itu.mbds.vacataire.models.MessageResponse;
+import itu.mbds.vacataire.models.Professeur;
+import itu.mbds.vacataire.models.ProfesseurResponse;
 import itu.mbds.vacataire.models.SignupRequest;
 import itu.mbds.vacataire.models.User;
 import itu.mbds.vacataire.models.UserRequest;
@@ -40,4 +42,8 @@ public interface ApiEndpoint {
     //Signup
     @POST("auth/signup")
     Call<MessageResponse> signup(@Body SignupRequest signup);
+
+    //Professeur
+    @GET("professeur/{id}")
+    Call<ProfesseurResponse> getProfesseur(@Path("id") String id);
 }

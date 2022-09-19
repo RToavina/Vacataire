@@ -1,35 +1,49 @@
-package itu.mbds.vacataire.models;
+package com.itu.vacataire.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Entity
 public class Emargement {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @NotNull
+    private LocalDate date;
+
+    public Emargement(LocalDate date, LocalTime debut, LocalTime fin, Matiere matiere, boolean isDone) {
+        this.date = date;
+        this.debut = debut;
+        this.fin = fin;
+        this.matiere = matiere;
+        this.done = isDone;
+    }
+
+    @NotNull
+    private LocalTime debut;
+
+    @NotNull
+    private LocalTime fin;
+
+    @NotNull
+    @OneToOne
     private Matiere matiere;
 
-    private LocalDate date;
-    private LocalTime debut;
-    private LocalTime fin;
+    @NotNull
     private boolean done;
 
-    public Emargement() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
+    public Emargement(){}
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public Matiere getMatiere() {
-        return matiere;
-    }
 
-    public void setMatiere(Matiere matiere) {
-        this.matiere = matiere;
+    public Long getId() {
+        return id;
     }
 
     public LocalDate getDate() {
@@ -54,6 +68,14 @@ public class Emargement {
 
     public void setFin(LocalTime fin) {
         this.fin = fin;
+    }
+
+    public Matiere getMatiere() {
+        return matiere;
+    }
+
+    public void setMatiere(Matiere matiere) {
+        this.matiere = matiere;
     }
 
     public boolean isDone() {

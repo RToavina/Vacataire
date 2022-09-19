@@ -2,12 +2,14 @@ package itu.mbds.vacataire.ui;
 
 import static itu.mbds.vacataire.calendar.CalendarUtils.daysInWeekArray;
 import static itu.mbds.vacataire.calendar.CalendarUtils.monthYearFromDate;
+import static itu.mbds.vacataire.calendar.CalendarUtils.selectedDate;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -26,22 +28,28 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import itu.mbds.vacataire.R;
 import itu.mbds.vacataire.adapter.CalendarAdapter;
 import itu.mbds.vacataire.adapter.EmargementAdapter;
 import itu.mbds.vacataire.calendar.CalendarUtils;
 import itu.mbds.vacataire.models.Emargement;
+import itu.mbds.vacataire.models.ProfesseurViewModel;
 
 
 public class WeeklyFragment extends Fragment implements CalendarAdapter.OnItemListener {
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private ListView eventListView;
+    private ProfesseurViewModel professeurViewModel;
+    private List<Emargement> emargements;
 
     public WeeklyFragment() {
         // Required empty public constructor
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +73,11 @@ public class WeeklyFragment extends Fragment implements CalendarAdapter.OnItemLi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        professeurViewModel = new ViewModelProvider(requireActivity()).get(ProfesseurViewModel.class);
+        professeurViewModel.getProfesseur().observe(getViewLifecycleOwner(), professeur -> {
+            emargements = professeur.emargements;
+            setWeekView();
+        });
         initWidgets();
         setWeekView();
     }
@@ -78,8 +91,13 @@ public class WeeklyFragment extends Fragment implements CalendarAdapter.OnItemLi
     private void setWeekView() {
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
         ArrayList<LocalDate> days = daysInWeekArray(CalendarUtils.selectedDate);
-
-        CalendarAdapter calendarAdapter = new CalendarAdapter(days, this);
+        List<LocalDate> e = new ArrayList<>();
+        if(emargements != null) {
+           e = emargements.stream().map(emargement ->
+                    emargement.getDate()
+            ).collect(Collectors.toList());
+        }
+        CalendarAdapter calendarAdapter = new CalendarAdapter(days,e, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
@@ -110,13 +128,11 @@ public class WeeklyFragment extends Fragment implements CalendarAdapter.OnItemLi
     }
 
     private void setEmargemntAdpater() {
-        ArrayList<Emargement> emargements = new ArrayList<>();
-        emargements.add(new Emargement("test", CalendarUtils.selectedDate, LocalTime.of(8,10), LocalTime.of(9,10)));
-        emargements.add(new Emargement("test", CalendarUtils.selectedDate, LocalTime.of(8,10), LocalTime.of(9,10)));
-        emargements.add(new Emargement("test", CalendarUtils.selectedDate, LocalTime.of(8,10), LocalTime.of(9,10)));
-        //TODO get tous les emargements via la date selectionnée
-        EmargementAdapter adapter = new EmargementAdapter(getContext(), emargements);
-        eventListView.setAdapter(adapter);
+        if(emargements != null) {
+            EmargementAdapter adapter = new EmargementAdapter(getContext(), emargements.stream()
+                    .filter(emargement -> emargement.getDate().isEqual(selectedDate)).collect(Collectors.toList()));
+            eventListView.setAdapter(adapter);
+        }
     }
 
     public void emargerAction(View view) {

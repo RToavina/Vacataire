@@ -31,7 +31,7 @@ public class MatiereController {
 
     @PostMapping(value = "/matiere", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Matiere> addMatiere(@RequestBody Matiere matiere){
-        return new ResponseEntity<>(matiereService.addMatiere(matiere), HttpStatus.CREATED);
+        return new ResponseEntity<>(matiereService.addMatiere(matiere), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/matiere/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -1,6 +1,7 @@
 package com.itu.vacataire.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -13,6 +14,9 @@ public class Professeur {
     @ManyToMany (fetch = FetchType.EAGER)
     private Set<Matiere> matieres;
 
+    @OneToMany (fetch = FetchType.EAGER)
+    private Set<Emargement> emargements;
+
     private Double tauxHoraire;
 
     public Professeur(){}
@@ -23,6 +27,12 @@ public class Professeur {
         this.tauxHoraire = tauxHoraire;
     }
 
+    public Professeur(User identifiant, Set<Matiere> matieres, Set<Emargement> emargements, double tauxHoraire){
+        this.identifiant = identifiant;
+        this.matieres = matieres;
+        this.tauxHoraire = tauxHoraire;
+        this.emargements = emargements;
+    }
     public Professeur(User identifiant, Set<Matiere> matieres){
         this.identifiant = identifiant;
         this.matieres = matieres;
@@ -50,5 +60,13 @@ public class Professeur {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Set<Emargement> getEmargements() {
+        return emargements;
+    }
+
+    public void setEmargements(Set<Emargement> emargements) {
+        this.emargements = emargements;
     }
 }

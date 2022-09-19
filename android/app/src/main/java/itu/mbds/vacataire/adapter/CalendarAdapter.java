@@ -18,11 +18,13 @@ import itu.mbds.vacataire.calendar.CalendarViewHolder;
 
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
     private final ArrayList<LocalDate> days;
+    private List<LocalDate> emargements;
     private final OnItemListener onItemListener;
 
-    public CalendarAdapter(ArrayList<LocalDate> days, OnItemListener onItemListener) {
+    public CalendarAdapter(ArrayList<LocalDate> days, List<LocalDate> emargements, OnItemListener onItemListener) {
         this.days = days;
         this.onItemListener = onItemListener;
+        this.emargements = emargements;
     }
 
     @NonNull
@@ -50,7 +52,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
             //TODO mettre les dates en couleur
             dateList.add(LocalDate.of(2022,9,8));
             dateList.add(LocalDate.of(2022,9,18));
-            dateList.forEach(localDate -> {
+            emargements.forEach(localDate -> {
                 if (date.equals(localDate)) {
                     holder.parentView.setBackgroundColor(Color.argb(190,231, 76, 60));
                 }

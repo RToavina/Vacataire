@@ -5,6 +5,7 @@ import static android.content.Context.MODE_PRIVATE;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.gson.Gson;
 
+import java.util.List;
+
 import itu.mbds.vacataire.api.ApiEndpoint;
 import itu.mbds.vacataire.api.ClientApi;
 import itu.mbds.vacataire.api.cookies.PreferenceHelper;
@@ -24,6 +27,7 @@ import retrofit2.Response;
 
 public class UserViewModel extends AndroidViewModel {
     private MutableLiveData<User> user;
+
     public boolean isLoggedIn = false;
 
     public UserViewModel(@NonNull Application application) {
@@ -32,21 +36,24 @@ public class UserViewModel extends AndroidViewModel {
 
     public LiveData<User> getUser() {
         if (user == null) {
-            user = new MutableLiveData<User>();
+            user = new MutableLiveData<>();
             loadUser();
         }
         return user;
     }
 
+
+
     private void loadUser() {
         // Do an asynchronous operation to fetch users.
-        SharedPreferences  mPrefs = getApplication().getSharedPreferences("userLogin", MODE_PRIVATE);
+        SharedPreferences mPrefs = getApplication().getSharedPreferences("userLogin", MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = mPrefs.getString("user","");
+        String json = mPrefs.getString("user", "");
         User u = gson.fromJson(json, User.class);
         user.setValue(u);
         isLoggedIn = u != null;
     }
+
 
     public void setUser(User user) {
         this.user.setValue(user);
@@ -82,7 +89,7 @@ public class UserViewModel extends AndroidViewModel {
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(Call<MessageResponse> call, Response<MessageResponse> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     clearUser();
                     clearCookies();
                 }
@@ -94,4 +101,6 @@ public class UserViewModel extends AndroidViewModel {
             }
         });
     }
+
+
 }

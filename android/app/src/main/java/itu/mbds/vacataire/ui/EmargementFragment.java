@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,20 +28,20 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 import itu.mbds.vacataire.R;
-import itu.mbds.vacataire.api.ApiEndpoint;
-import itu.mbds.vacataire.api.ClientApi;
 import itu.mbds.vacataire.models.Matiere;
 import itu.mbds.vacataire.models.MatiereViewModel;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import itu.mbds.vacataire.models.ProfesseurViewModel;
+import itu.mbds.vacataire.models.User;
+import itu.mbds.vacataire.models.UserViewModel;
 
 public class EmargementFragment extends Fragment {
     private MatiereViewModel matiereViewModel;
+    private UserViewModel userViewModel;
+    private ProfesseurViewModel professeurViewModel;
+
     private TextView matiere;
     TextInputLayout menu;
     String[] matieres = {"Français", "Mathématiques", "SVT", "Histoire", "Géographie", "EMC"};
@@ -73,7 +73,10 @@ public class EmargementFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        matiereViewModel = new ViewModelProvider(this).get(MatiereViewModel.class);
+        matiereViewModel = new ViewModelProvider(requireActivity()).get(MatiereViewModel.class);
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        professeurViewModel = new ViewModelProvider(requireActivity()).get(ProfesseurViewModel.class);
+
         matiere = getView().findViewById(R.id.matiere);
         heureDepartView = (TextInputLayout) getView().findViewById(R.id.heureDepart);
         heureArriveView = (TextInputLayout) getView().findViewById(R.id.heureArrive);
@@ -88,10 +91,10 @@ public class EmargementFragment extends Fragment {
             dateTextView.getEditText().setText(selectedDate.format(formatter));
         }
 
-        matiereViewModel.getMatieres().observe(getViewLifecycleOwner(), matieres -> {
-            if (matieres != null) {
+        professeurViewModel.getProfesseur().observe(getViewLifecycleOwner(), professeur -> {
+            if (professeur != null) {
                 ArrayAdapter<Matiere> adapter =
-                        new ArrayAdapter<>(getContext(), R.layout.dropdown_menu_item, matieres);
+                        new ArrayAdapter<>(getContext(), R.layout.dropdown_menu_item, professeur.matieres);
                 AutoCompleteTextView dropdownView = getView().findViewById(R.id.emargement_matiere_dropdown);
                 dropdownView.setAdapter(adapter);
             }
@@ -107,14 +110,6 @@ public class EmargementFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-    }
-
-    private void initMatiereDropdown() {
-//        ArrayAdapter<String> adapter =
-//                new ArrayAdapter<>(getContext(), R.layout.dropdown_menu_item, matieres);
-//        AutoCompleteTextView dropdownView =
-//                getView().findViewById(R.id.emargement_matiere_dropdown);
-//        dropdownView.setAdapter(adapter);
     }
 
     private void initProfesseur() {

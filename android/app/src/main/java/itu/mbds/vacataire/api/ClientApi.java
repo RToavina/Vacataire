@@ -2,6 +2,9 @@ package itu.mbds.vacataire.api;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import itu.mbds.vacataire.api.cookies.ReceivedCookiesInterceptor;
 import itu.mbds.vacataire.api.cookies.SetCookiesInterceptor;
 import okhttp3.Interceptor;
@@ -21,13 +24,16 @@ public class ClientApi {
     public ApiEndpoint create() {
         if(instance == null) {
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+            Gson gson = new GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                    .create();
 
             httpClient.addInterceptor(new SetCookiesInterceptor(context));
             httpClient.addInterceptor(new ReceivedCookiesInterceptor(context));
             
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(API_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(httpClient.build())
                     .build();
             instance =  retrofit.create(ApiEndpoint.class);

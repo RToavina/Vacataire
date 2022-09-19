@@ -67,7 +67,7 @@ public class SignupFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        matiereViewModel = new ViewModelProvider(this).get(MatiereViewModel.class);
+        matiereViewModel = new ViewModelProvider(requireActivity()).get(MatiereViewModel.class);
         reg_name = getView().findViewById(R.id.reg_name);
         reg_prenom = getView().findViewById(R.id.reg_prenom);
         reg_username = getView().findViewById(R.id.reg_username);

@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import itu.mbds.vacataire.models.Emargement;
+
 public class CalendarUtils {
     public static LocalDate selectedDate;
 

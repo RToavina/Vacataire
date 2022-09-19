@@ -2,6 +2,7 @@ package com.itu.vacataire;
 
 import com.itu.vacataire.model.*;
 import com.itu.vacataire.payload.request.SignupRequest;
+import com.itu.vacataire.repositories.EmargementRepository;
 import com.itu.vacataire.repositories.RoleRepository;
 import com.itu.vacataire.services.AuthService;
 import com.itu.vacataire.services.MatiereService;
@@ -12,6 +13,12 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -32,6 +39,9 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private EmargementRepository emargementRepository;
+
     private Matiere svt = new Matiere("SVT");
     private Matiere pc = new Matiere("PC");
     private Matiere info = new Matiere("INFO");
@@ -39,10 +49,22 @@ public class DataLoader implements ApplicationRunner {
     private Professeur prof1, prof2, prof3;
     private User user1, user2, user3;
 
+    private Set<Emargement> emargements;
+
     public void initMatiere() {
         svt = matiereService.addMatiere(svt);
         pc = matiereService.addMatiere(pc);
         info = matiereService.addMatiere(info);
+    }
+
+    public void initEmargement() {
+        emargements = new HashSet<>();
+        emargements.add(emargementRepository.save(new Emargement(LocalDate.of(2022, Month.SEPTEMBER, 8), LocalTime.parse("12:32:22",
+                DateTimeFormatter.ISO_TIME),  LocalTime.parse("13:32:22",
+                DateTimeFormatter.ISO_TIME), svt, false)));
+        emargements.add(emargementRepository.save(new Emargement(LocalDate.of(2022, Month.SEPTEMBER, 8), LocalTime.parse("14:32:22",
+                DateTimeFormatter.ISO_TIME),  LocalTime.parse("14:32:22",
+                DateTimeFormatter.ISO_TIME), pc, false)));
     }
 
     public void initUser() {
@@ -67,7 +89,7 @@ public class DataLoader implements ApplicationRunner {
                 "user3",
                 "00000000",null
         ));
-        prof1 = professeurService.addProfesseur(new Professeur( user1, Set.of(svt, pc), 1000));
+        prof1 = professeurService.addProfesseur(new Professeur( user1, Set.of(svt, pc), emargements, 1000));
         prof2 = professeurService.addProfesseur(new Professeur(user2, Set.of(pc), 1500));
         prof3 = professeurService.addProfesseur(new Professeur(user3, Set.of(info), 1250));
     }
@@ -93,6 +115,7 @@ public class DataLoader implements ApplicationRunner {
         this.initRole();
         this.initAdminUser();
         this.initMatiere();
+        this.initEmargement();
         this.initUser();
     }
 }

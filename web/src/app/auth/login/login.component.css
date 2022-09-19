@@ -1,18 +1,38 @@
-.container{
-  margin-left: 25%;
-  margin-right: 25%;
-  margin-top: 90px;
-  max-width: 450px;
-  min-width: 380px;
+* { padding: 0; margin: 0; }
+
+#wrapper {
+  margin: 0 auto;
+  width: 922px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.login_container{
+#leftcolumn {
+  margin: 0px 5px 5px 0px;
+  padding: 10px;
+  height: 350px;
+  width: 195px;
+  float: left;
+}
+
+#top_content{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 30px;
-  border: solid;
+}
+
+#content {
+  float: left;
+  color: #333;
+  border: 1px solid #ccc;
+  background:solid;
+  margin: 0px 5px 5px 0px;
+  padding: 10px;
+  height: 350px;
+  width: 456px;
+  display: inline;
 }
 
 .img{
@@ -24,8 +44,11 @@
   display: flex;
   flex-direction: column;
 }
-.buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1em;
+
+#rightcolumn {
+  margin: 0px 0px 5px 0px;
+  padding: 10px;
+  height: 350px;
+  width: 195px;
+  float: left;
 }

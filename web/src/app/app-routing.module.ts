@@ -5,6 +5,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {ControlComponent} from "./control/control.component";
 
 const routes: Routes = [  {
   path: '',
@@ -20,12 +21,16 @@ const routes: Routes = [  {
     component: SignupComponent
   },
   {
-    path: 'emarg',
+    path: 'emargement',
     component: EmargementComponent
   },
   {
     path: 'calendar',
     component: CalendarComponent
+  },
+  {
+    path: 'control',
+    component: ControlComponent
   }
 ];
 

@@ -1,46 +1,54 @@
-<div class="div">
+<div id="wrapper">
 
-  <img src="assets/img/logo.png" class="img">
+  <div id="leftcolumn"></div>
 
-  <h2>Inscription</h2>
-  <form class="container">
+  <div id="content">
 
-    <mat-form-field appearance="outline">
-      <mat-label>Nom</mat-label>
-      <input matInput formControlName='nom' type="text">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
-      <input matInput formControlName='email' type="email">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Numéro de téléphone</mat-label>
-      <input matInput formControlName='numeroTel' type="tel">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Identifiant</mat-label>
-      <input matInput formControlName='identifiant' type="text">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Mot de passe</mat-label>
-      <input matInput formControlName='mdp' type="password">
-    </mat-form-field>
-
-    <mat-form-field  appearance="outline">
-      <mat-label>Matières</mat-label>
-      <mat-select>
-        <mat-option value="svt">SVT</mat-option>
-        <mat-option value="pc">PC</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <div class="buttons">
-      <button mat-raised-button type="submit" color="primary">Inscription</button>
+    <div id="top_content">
+      <img src="assets/img/logo.png" class="img">
+      <h2>Inscription</h2>
     </div>
 
-  </form>
+    <form class="form_container">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nom</mat-label>
+        <input matInput formControlName='nom' type="text">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName='email' type="email">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Numéro de téléphone</mat-label>
+        <input matInput formControlName='numeroTel' type="tel">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Identifiant</mat-label>
+        <input matInput formControlName='identifiant' type="text">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Mot de passe</mat-label>
+        <input matInput formControlName='mdp' type="password">
+      </mat-form-field>
+
+      <mat-form-field  appearance="outline">
+        <mat-label>Matières</mat-label>
+        <mat-select>
+          <mat-option value="svt">SVT</mat-option>
+          <mat-option value="pc">PC</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button type="submit" color="primary">Inscription</button>
+
+    </form>
+
+  </div>
+
+  <div id="rightcolumn"></div>
 </div>

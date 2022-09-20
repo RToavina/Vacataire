@@ -53,8 +53,8 @@ export class CalendarComponent implements OnInit {
         start  : '2022-09-29',
         allDay : false // will make the time show
       }
-    ]
-
+    ],
+    height: "auto"
   };
 
   emarger(info:any){

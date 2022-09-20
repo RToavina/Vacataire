@@ -2,6 +2,7 @@
 
 #wrapper {
   margin: 0 auto;
+  margin-top: 5%;
   width: 922px;
   display: flex;
   align-items: center;
@@ -25,9 +26,8 @@
 
 #content {
   float: left;
-  color: #333;
   border: 1px solid #ccc;
-  background:solid;
+  border-radius: 25px;
   margin: 0px 5px 5px 0px;
   padding: 10px;
   height: 350px;

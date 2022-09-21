@@ -26,15 +26,16 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Locale;
 
 import itu.mbds.vacataire.R;
+import itu.mbds.vacataire.calendar.CalendarUtils;
 import itu.mbds.vacataire.models.Matiere;
 import itu.mbds.vacataire.models.MatiereViewModel;
 import itu.mbds.vacataire.models.ProfesseurViewModel;
-import itu.mbds.vacataire.models.User;
 import itu.mbds.vacataire.models.UserViewModel;
 
 public class EmargementFragment extends Fragment {
@@ -48,7 +49,7 @@ public class EmargementFragment extends Fragment {
     String[] professeurs = {"Toto", "Titi", "Tata"};
     private TextInputLayout dateTextView, heureDepartView, heureArriveView;
     final Calendar myCalendar = Calendar.getInstance();
-    final Calendar hour = Calendar.getInstance();
+    LocalTime depart, fin;
 
     private LocalDate selectedDate;
 
@@ -60,8 +61,8 @@ public class EmargementFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        hour.set(Calendar.HOUR, 7);
-        hour.set(Calendar.MINUTE, 0);
+        depart = LocalTime.of(7,0);
+        fin = LocalTime.of(7,0);
     }
 
     @Override
@@ -92,7 +93,6 @@ public class EmargementFragment extends Fragment {
         }
 
         professeurViewModel.getProfesseur().observe(getViewLifecycleOwner(), professeur -> {
-            Log.d("professeur", professeur.username);
             if (professeur != null) {
                 ArrayAdapter<Matiere> adapter =
                         new ArrayAdapter<>(getContext(), R.layout.dropdown_menu_item, professeur.matieres);
@@ -152,19 +152,21 @@ public class EmargementFragment extends Fragment {
 
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                hour.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                hour.set(Calendar.MINUTE, minute);
+                depart = LocalTime.of(hourOfDay, minute);
                 updateLabelHeure(editText);
             }
         };
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Create TimePickerDialog:
+                LocalTime cur = LocalTime.of(7,0);
+                if (editText.getText().toString().length() > 0) {
+                    cur = LocalTime.parse(editText.getText().toString());
+                }
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
                         android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
-                        timeSetListener, hour.get(Calendar.HOUR_OF_DAY),
-                        hour.get(Calendar.MINUTE), true);
+                        timeSetListener, cur.getHour(),
+                        cur.getMinute(), true);
                 timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 timePickerDialog.show();
             }
@@ -172,9 +174,7 @@ public class EmargementFragment extends Fragment {
     }
 
     private void updateLabelHeure(EditText view) {
-        String myFormat = "kk:mm";
-        SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.FRANCE);
-        view.setText(dateFormat.format(hour.getTime()));
+        view.setText(CalendarUtils.formattedTime(depart));
     }
 
     private void updateLabelDate() {

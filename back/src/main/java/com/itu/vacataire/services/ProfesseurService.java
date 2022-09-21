@@ -19,7 +19,7 @@ public class ProfesseurService implements IProfesseurService {
         return professeurRepository.findAll();
     }
 
-    public Professeur getProfesseurById(String id){
+    public Professeur getProfesseurById(Long id){
         return professeurRepository.findById(id).orElse(null);
     }
 
@@ -32,7 +32,12 @@ public class ProfesseurService implements IProfesseurService {
     }
 
     @Override
-    public void deleteProfesseurById(String id) {
+    public Professeur findByUsername(String username) {
+        return professeurRepository.findFirstByIdentifiant_Username(username).orElseThrow(() -> new RuntimeException("Error: User is not found."));
+    }
+
+    @Override
+    public void deleteProfesseurById(Long id) {
         professeurRepository.deleteById(id);
     }
 

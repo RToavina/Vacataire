@@ -92,6 +92,7 @@ public class EmargementFragment extends Fragment {
         }
 
         professeurViewModel.getProfesseur().observe(getViewLifecycleOwner(), professeur -> {
+            Log.d("professeur", professeur.username);
             if (professeur != null) {
                 ArrayAdapter<Matiere> adapter =
                         new ArrayAdapter<>(getContext(), R.layout.dropdown_menu_item, professeur.matieres);

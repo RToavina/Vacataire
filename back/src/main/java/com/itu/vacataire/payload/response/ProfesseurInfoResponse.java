@@ -4,7 +4,6 @@ import com.itu.vacataire.model.Emargement;
 import com.itu.vacataire.model.Matiere;
 import com.itu.vacataire.model.Professeur;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,7 +18,7 @@ public class ProfesseurInfoResponse extends UserInfoResponse {
     }
 
     public ProfesseurInfoResponse(Professeur p) {
-        super(p.getUsername(),
+        super(p.getIdentifiant().getUsername(),
                 p.getIdentifiant().getEmail(),
                 p.getIdentifiant().getNom(),
                 p.getIdentifiant().getPrenom(),

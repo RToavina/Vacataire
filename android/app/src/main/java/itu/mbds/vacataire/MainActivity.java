@@ -56,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
                 navController.navigate(R.id.signupFragment);
                 invalidateOptionsMenu();
                 return true;
+            case R.id.navigation_login:
+                navController.navigate(R.id.loginFragment);
+                invalidateOptionsMenu();
+                return true;
             case R.id.navigation_calendar:
                 navController.navigate(R.id.calendarFragment);
                 invalidateOptionsMenu();

@@ -7,9 +7,9 @@ import java.util.Set;
 @Entity
 public class Professeur {
     @Id
-    private String username;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @MapsId
     private User identifiant;
     @ManyToMany (fetch = FetchType.EAGER)
     private Set<Matiere> matieres;
@@ -21,13 +21,13 @@ public class Professeur {
 
     public Professeur(){}
 
-    public Professeur(User identifiant, Set<Matiere> matieres, double tauxHoraire){
+    public Professeur(User identifiant, Set<Matiere> matieres, Double tauxHoraire){
         this.identifiant = identifiant;
         this.matieres = matieres;
         this.tauxHoraire = tauxHoraire;
     }
 
-    public Professeur(User identifiant, Set<Matiere> matieres, Set<Emargement> emargements, double tauxHoraire){
+    public Professeur(User identifiant, Set<Matiere> matieres, Set<Emargement> emargements, Double tauxHoraire){
         this.identifiant = identifiant;
         this.matieres = matieres;
         this.tauxHoraire = tauxHoraire;
@@ -54,19 +54,19 @@ public class Professeur {
         this.identifiant = identifiant;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public Set<Emargement> getEmargements() {
         return emargements;
     }
 
     public void setEmargements(Set<Emargement> emargements) {
         this.emargements = emargements;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

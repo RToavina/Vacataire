@@ -16,6 +16,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiEndpoint {
 
@@ -44,6 +45,6 @@ public interface ApiEndpoint {
     Call<MessageResponse> signup(@Body SignupRequest signup);
 
     //Professeur
-    @GET("professeur/{id}")
-    Call<ProfesseurResponse> getProfesseur(@Path("id") String id);
+    @GET("professeur")
+    Call<ProfesseurResponse> getProfesseur(@Query("username") String id);
 }

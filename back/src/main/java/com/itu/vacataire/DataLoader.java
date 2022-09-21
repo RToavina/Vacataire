@@ -89,9 +89,9 @@ public class DataLoader implements ApplicationRunner {
                 "user3",
                 "00000000",null
         ));
-        prof1 = professeurService.addProfesseur(new Professeur( user1, Set.of(svt, pc), emargements, 1000));
-        prof2 = professeurService.addProfesseur(new Professeur(user2, Set.of(pc), 1500));
-        prof3 = professeurService.addProfesseur(new Professeur(user3, Set.of(info), 1250));
+        prof1 = professeurService.addProfesseur(new Professeur(user1, Set.of(svt, pc), emargements, 1000.0));
+        prof2 = professeurService.addProfesseur(new Professeur(user2, Set.of(pc), 1500.0));
+        prof3 = professeurService.addProfesseur(new Professeur(user3, Set.of(info), 1250.0));
     }
 
     public void initRole() {

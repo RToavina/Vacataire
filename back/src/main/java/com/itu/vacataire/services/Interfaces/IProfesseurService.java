@@ -8,10 +8,12 @@ public interface IProfesseurService {
 
     List<Professeur> getAllProfesseur();
 
-    Professeur getProfesseurById(String id);
+    Professeur getProfesseurById(Long id);
 
     Professeur addProfesseur(Professeur professeur);
 
-    void deleteProfesseurById(String id);
+    Professeur findByUsername(String username);
+
+    void deleteProfesseurById(Long id);
 
 }

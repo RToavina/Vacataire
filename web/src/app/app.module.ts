@@ -21,6 +21,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatTableModule} from "@angular/material/table";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {MatTableModule} from "@angular/material/table";
     MatIconModule,
     MatToolbarModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+    MatCardModule
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

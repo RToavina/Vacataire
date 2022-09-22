@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {Matiere} from "../model/matiere";
+import {Component, OnInit} from '@angular/core';
 import {Professeur} from "../model/professeur";
+import {LoginComponent} from "../auth/login/login.component";
+import {MatDialog} from "@angular/material/dialog";
+import {SignupComponent} from "../auth/signup/signup.component";
 
 const PC = {nom:"PC",id:1};
 const SVT = {nom:"SVT",id:2};
@@ -21,12 +23,21 @@ const ELEMENT_DATA: Professeur[] = [
 })
 export class ControlComponent implements OnInit {
 
-  constructor() { }
+  constructor( private dialog:MatDialog) { }
 
   ngOnInit(): void {
   }
 
-  displayedColumns: string[] = ['username','nom_prenom','matieres','actions'];
+  displayedColumns: string[] = ['nom_prenom','matieres','actions'];
   dataSource = ELEMENT_DATA;
 
+  openDialog() {
+    const diaglogRef = this.dialog.open(SignupComponent,{
+      width : '550px',
+    });
+
+    diaglogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 }

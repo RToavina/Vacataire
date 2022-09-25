@@ -15,19 +15,17 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,6 +78,17 @@ public class WeeklyFragment extends Fragment implements CalendarAdapter.OnItemLi
         });
         initWidgets();
         setWeekView();
+        eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Emargement emargement = (Emargement) adapterView.getItemAtPosition(i);
+                NavDirections action = WeeklyFragmentDirections.actionWeeklyFragmentToEmargementFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("selectedEmargement", emargement);
+                Navigation.findNavController(view).navigate(action.getActionId(), bundle);
+            }
+        });
     }
 
     private void initWidgets() {
@@ -101,7 +110,7 @@ public class WeeklyFragment extends Fragment implements CalendarAdapter.OnItemLi
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
-        setEmargemntAdpater();
+        setEmargementAdpater();
     }
 
 
@@ -124,10 +133,10 @@ public class WeeklyFragment extends Fragment implements CalendarAdapter.OnItemLi
     @Override
     public void onResume() {
         super.onResume();
-        setEmargemntAdpater();
+        setEmargementAdpater();
     }
 
-    private void setEmargemntAdpater() {
+    private void setEmargementAdpater() {
         if(emargements != null) {
             EmargementAdapter adapter = new EmargementAdapter(getContext(), emargements.stream()
                     .filter(emargement -> emargement.getDate().isEqual(selectedDate)).collect(Collectors.toList()));

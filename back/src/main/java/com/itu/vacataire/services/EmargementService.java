@@ -8,6 +8,7 @@ import com.itu.vacataire.repositories.EmargementRepository;
 import com.itu.vacataire.services.Interfaces.IEmargementService;
 import com.itu.vacataire.services.Interfaces.IMatiereService;
 import com.itu.vacataire.services.Interfaces.IProfesseurService;
+import com.itu.vacataire.utils.CalendarUtils;
 import com.itu.vacataire.utils.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,12 +54,11 @@ public class EmargementService implements IEmargementService {
         if( m == null) {
             throw new HttpException("error");
         }
-
         Emargement newEmargement = new Emargement();
         newEmargement.setId(emargement.getId());
-        newEmargement.setDate(emargement.getDate());
-        newEmargement.setDebut(emargement.getDebut());
-        newEmargement.setFin(emargement.getFin());
+        newEmargement.setDate(CalendarUtils.stringToLocalDate(emargement.getDate()));
+        newEmargement.setDebut(CalendarUtils.stringToLocaTime(emargement.getDebut()));
+        newEmargement.setFin(CalendarUtils.stringToLocaTime(emargement.getFin()));
         newEmargement.setMatiere(m);
         newEmargement.setProfesseur(p);
         newEmargement.setDone(false);

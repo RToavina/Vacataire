@@ -1,9 +1,11 @@
 package itu.mbds.vacataire.models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
-public class Emargement {
+public class Emargement implements Serializable {
     private Long id;
     private Matiere matiere;
 
@@ -62,5 +64,18 @@ public class Emargement {
 
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Emargement that = (Emargement) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

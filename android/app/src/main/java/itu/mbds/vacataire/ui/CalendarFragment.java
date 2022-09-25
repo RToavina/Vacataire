@@ -138,7 +138,9 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
 
     public void emargerAction(View view) {
         NavDirections action = CalendarFragmentDirections.actionCalendarFragmentToEmargementFragment();
-        Navigation.findNavController(view).navigate(action);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("selectedDate", CalendarUtils.selectedDate);
+        Navigation.findNavController(view).navigate(action.getActionId(), bundle);
     }
 
 }

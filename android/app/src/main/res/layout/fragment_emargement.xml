@@ -37,26 +37,12 @@
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
+                android:id="@+id/emargement_matiere"
                 android:layout_height="wrap_content"
                 android:hint="Matiere">
 
                 <AutoCompleteTextView
                     android:id="@+id/emargement_matiere_dropdown"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Professeur">
-
-                <AutoCompleteTextView
-                    android:id="@+id/emargement_professeur_dropdown"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none" />
@@ -102,7 +88,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/heureDepart"
+                    android:id="@+id/heureArrive"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -118,7 +104,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     style="@style/Widget.MaterialComponents.Button.Icon"
-                    android:id="@+id/btn_heureDepart"
+                    android:id="@+id/btn_heureArrive"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
@@ -134,7 +120,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/heureArrive"
+                    android:id="@+id/heureDepart"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -150,7 +136,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     style="@style/Widget.MaterialComponents.Button.Icon"
-                    android:id="@+id/btn_heureArrive"
+                    android:id="@+id/btn_heureDepart"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"

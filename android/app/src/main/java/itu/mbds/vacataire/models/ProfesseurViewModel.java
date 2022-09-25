@@ -2,6 +2,7 @@ package itu.mbds.vacataire.models;
 
 import android.app.Application;
 import android.util.Log;
+import android.util.Property;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -27,6 +28,13 @@ public class ProfesseurViewModel extends AndroidViewModel {
             professeur = new MutableLiveData<>();
         }
         return professeur;
+    }
+
+    public void setValue(Professeur p) {
+        if(professeur == null) {
+            professeur = new MutableLiveData<>();
+        }
+        professeur.setValue(p);
     }
 
 

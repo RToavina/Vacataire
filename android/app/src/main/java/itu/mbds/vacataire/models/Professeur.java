@@ -26,16 +26,7 @@ public class Professeur {
         matieres = p.matieres;
         tauxHoraire = p.tauxHoraire;
         emargements = p.emargements.stream().map(emargementString -> {
-            Emargement e = new Emargement();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate date = LocalDate.parse(emargementString.date, formatter);
-            e.setDate(date);
-            e.setDebut(LocalTime.parse(emargementString.debut));
-            e.setFin(LocalTime.parse(emargementString.fin));
-            e.setDone(emargementString.done);
-            e.setId(emargementString.id);
-            e.setMatiere(emargementString.matiere);
-            return e;
+           return EmargementString.toEmargement(emargementString);
         }).collect(Collectors.toList());
     }
 }

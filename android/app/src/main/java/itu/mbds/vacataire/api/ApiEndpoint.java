@@ -2,6 +2,9 @@ package itu.mbds.vacataire.api;
 
 import java.util.List;
 
+import itu.mbds.vacataire.models.Emargement;
+import itu.mbds.vacataire.models.EmargementRequest;
+import itu.mbds.vacataire.models.EmargementString;
 import itu.mbds.vacataire.models.Matiere;
 import itu.mbds.vacataire.models.MessageResponse;
 import itu.mbds.vacataire.models.Professeur;
@@ -15,6 +18,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -47,4 +51,8 @@ public interface ApiEndpoint {
     //Professeur
     @GET("professeur")
     Call<ProfesseurResponse> getProfesseur(@Query("username") String id);
+
+    //Emargement
+    @PUT("emargement")
+    Call<EmargementString> saveEmargement(@Body EmargementRequest emargement);
 }

@@ -1,12 +1,32 @@
-package com.itu.vacataire.payload.request;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
+package itu.mbds.vacataire.models;
 
 public class EmargementRequest {
 
     private Long id;
     private String date;
+
+    @Override
+    public String toString() {
+        return "EmargementRequest{" +
+                "id=" + id +
+                ", date=" + date +
+                ", username='" + username + '\'' +
+                ", debut=" + debut +
+                ", fin=" + fin +
+                ", matiere='" + matiere + '\'' +
+                ", done=" + done +
+                '}';
+    }
+
+    public EmargementRequest(Long id, String date, String username, String debut, String fin, String matiere, boolean done) {
+        this.id = id;
+        this.date = date;
+        this.username = username;
+        this.debut = debut;
+        this.fin = fin;
+        this.matiere = matiere;
+        this.done = done;
+    }
 
     private String username;
 

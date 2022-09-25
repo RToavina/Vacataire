@@ -1,14 +1,13 @@
 package com.itu.vacataire.controllers;
 
 import com.itu.vacataire.model.Emargement;
+import com.itu.vacataire.payload.request.EmargementRequest;
 import com.itu.vacataire.services.EmargementService;
 import com.itu.vacataire.services.Interfaces.IEmargementService;
+import com.itu.vacataire.utils.HttpException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,6 +29,11 @@ public class EmargementController {
     @GetMapping("/emargement/all")
     ResponseEntity<List<Emargement>> getAll() {
         return new ResponseEntity<>(this.emargementService.findAll(), HttpStatus.OK);
+    }
+
+    @PutMapping("/emargement")
+    ResponseEntity<Emargement> saveEmargement(@RequestBody EmargementRequest emargement) throws HttpException {
+        return new ResponseEntity<>(this.emargementService.saveEmargement(emargement), HttpStatus.OK);
     }
 
 }

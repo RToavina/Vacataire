@@ -8,4 +8,6 @@ import java.util.List;
 public interface IEmargementService {
     List<Emargement> findAllByMonth(Date date);
     List<Emargement> findAll();
+
+    List<Emargement> findAllByProfesseur(String username);
 }

@@ -1,7 +1,8 @@
 package com.itu.vacataire.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -10,11 +11,13 @@ public class Professeur {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "username", unique = true)
     private User identifiant;
     @ManyToMany (fetch = FetchType.EAGER)
     private Set<Matiere> matieres;
 
-    @OneToMany (fetch = FetchType.EAGER)
+    @OneToMany (fetch = FetchType.EAGER, mappedBy="professeur")
+    @JsonIgnore
     private Set<Emargement> emargements;
 
     private Double tauxHoraire;

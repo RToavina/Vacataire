@@ -46,8 +46,8 @@ public class DataLoader implements ApplicationRunner {
     private Matiere pc = new Matiere("PC");
     private Matiere info = new Matiere("INFO");
 
-    private Professeur prof1, prof2, prof3;
-    private User user1, user2, user3;
+    private User user1, user2, user3, admin;
+    Professeur p1, p2, p3, pAdmin;
 
     private Set<Emargement> emargements;
 
@@ -61,10 +61,10 @@ public class DataLoader implements ApplicationRunner {
         emargements = new HashSet<>();
         emargements.add(emargementRepository.save(new Emargement(LocalDate.of(2022, Month.SEPTEMBER, 8), LocalTime.parse("12:32:22",
                 DateTimeFormatter.ISO_TIME),  LocalTime.parse("13:32:22",
-                DateTimeFormatter.ISO_TIME), svt, false)));
+                DateTimeFormatter.ISO_TIME), svt,pAdmin, false)));
         emargements.add(emargementRepository.save(new Emargement(LocalDate.of(2022, Month.SEPTEMBER, 8), LocalTime.parse("14:32:22",
                 DateTimeFormatter.ISO_TIME),  LocalTime.parse("14:32:22",
-                DateTimeFormatter.ISO_TIME), pc, false)));
+                DateTimeFormatter.ISO_TIME), pc,pAdmin, false)));
     }
 
     public void initUser() {
@@ -89,9 +89,9 @@ public class DataLoader implements ApplicationRunner {
                 "user3",
                 "00000000",null
         ));
-        prof1 = professeurService.addProfesseur(new Professeur(user1, Set.of(svt, pc), emargements, 1000.0));
-        prof2 = professeurService.addProfesseur(new Professeur(user2, Set.of(pc), 1500.0));
-        prof3 = professeurService.addProfesseur(new Professeur(user3, Set.of(info), 1250.0));
+        p1 = professeurService.addProfesseur(new Professeur(user1, Set.of(svt, pc), 1000.0));
+        p2 = professeurService.addProfesseur(new Professeur(user2, Set.of(pc), 1500.0));
+        p3 = professeurService.addProfesseur(new Professeur(user3, Set.of(info), 1250.0));
     }
 
     public void initRole() {
@@ -101,21 +101,23 @@ public class DataLoader implements ApplicationRunner {
     }
 
     public void initAdminUser() {
-        this.authService.registerUser(new SignupRequest("admin",
+       admin = this.authService.registerUser(new SignupRequest("admin",
                 "admin@test.com",
                 "admin",
                 "Admin",
                 "admin",
                 "00000000",
                 Set.of("admin")));
+        pAdmin = professeurService.addProfesseur(new Professeur(admin, Set.of(svt, pc, info), null));
+
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         this.initRole();
-        this.initAdminUser();
         this.initMatiere();
-        this.initEmargement();
+        this.initAdminUser();
         this.initUser();
+        this.initEmargement();
     }
 }

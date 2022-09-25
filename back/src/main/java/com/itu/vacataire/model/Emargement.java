@@ -14,13 +14,8 @@ public class Emargement {
     @NotNull
     private LocalDate date;
 
-    public Emargement(LocalDate date, LocalTime debut, LocalTime fin, Matiere matiere, boolean isDone) {
-        this.date = date;
-        this.debut = debut;
-        this.fin = fin;
-        this.matiere = matiere;
-        this.done = isDone;
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Professeur professeur;
 
     @NotNull
     private LocalTime debut;
@@ -29,11 +24,20 @@ public class Emargement {
     private LocalTime fin;
 
     @NotNull
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Matiere matiere;
 
     @NotNull
     private boolean done;
+
+    public Emargement(LocalDate date, LocalTime debut, LocalTime fin, Matiere matiere,Professeur professeur, boolean isDone) {
+        this.date = date;
+        this.debut = debut;
+        this.fin = fin;
+        this.matiere = matiere;
+        this.done = isDone;
+        this.professeur = professeur;
+    }
 
     public Emargement(){}
 
@@ -84,5 +88,13 @@ public class Emargement {
 
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    public Professeur getProfesseur() {
+        return professeur;
+    }
+
+    public void setProfesseur(Professeur professeur) {
+        this.professeur = professeur;
     }
 }

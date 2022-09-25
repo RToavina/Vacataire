@@ -8,16 +8,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ProfesseurInfoResponse extends UserInfoResponse {
+public class ProfesseurDto extends UserInfoResponse {
     private Set<Matiere> matieres;
     private Set<Emargement> emargements;
     private Double tauxHoraire;
 
-    public ProfesseurInfoResponse(String username, String email, String nom, String prenom, List<String> roles) {
-        super(username, email, nom, prenom, roles);
-    }
-
-    public ProfesseurInfoResponse(Professeur p) {
+    public ProfesseurDto(Professeur p) {
         super(p.getIdentifiant().getUsername(),
                 p.getIdentifiant().getEmail(),
                 p.getIdentifiant().getNom(),

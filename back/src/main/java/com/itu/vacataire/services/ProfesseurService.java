@@ -19,11 +19,6 @@ public class ProfesseurService implements IProfesseurService {
         return professeurRepository.findAll();
     }
 
-    @Override
-    public Professeur getByNomAndPrenom(String nom, String prenom) {
-        return professeurRepository.findFirstByNomAndPrenom(nom, prenom);
-    }
-
     public Professeur getProfesseurById(Long id){
         return professeurRepository.findById(id).orElse(null);
     }
@@ -34,6 +29,11 @@ public class ProfesseurService implements IProfesseurService {
             throw new IllegalArgumentException();
         }
         return professeurRepository.save(professeur);
+    }
+
+    @Override
+    public Professeur findByUsername(String username) {
+        return professeurRepository.findFirstByIdentifiant_Username(username).orElseThrow(() -> new RuntimeException("Error: User is not found."));
     }
 
     @Override

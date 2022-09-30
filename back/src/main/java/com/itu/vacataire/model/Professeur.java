@@ -1,50 +1,75 @@
 package com.itu.vacataire.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Professeur {
     @Id
-    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    private String nom;
-
-    private String prenom;
-
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "username", unique = true)
+    private User identifiant;
     @ManyToMany (fetch = FetchType.EAGER)
-    private List<Matiere> matieres;
+    private Set<Matiere> matieres;
+
+    @OneToMany (fetch = FetchType.EAGER, mappedBy="professeur")
+    @JsonIgnore
+    private Set<Emargement> emargements;
 
     private Double tauxHoraire;
 
     public Professeur(){}
 
-    public Professeur(String nom, String prenom, List<Matiere> matieres, double tauxHoraire){
-        this.nom = nom;
-        this.prenom = prenom;
+    public Professeur(User identifiant, Set<Matiere> matieres, Double tauxHoraire){
+        this.identifiant = identifiant;
         this.matieres = matieres;
         this.tauxHoraire = tauxHoraire;
     }
 
-    public Long getId() {return id;}
+    public Professeur(User identifiant, Set<Matiere> matieres, Set<Emargement> emargements, Double tauxHoraire){
+        this.identifiant = identifiant;
+        this.matieres = matieres;
+        this.tauxHoraire = tauxHoraire;
+        this.emargements = emargements;
+    }
+    public Professeur(User identifiant, Set<Matiere> matieres){
+        this.identifiant = identifiant;
+        this.matieres = matieres;
+    }
 
-    public void setId(Long id) {this.id = id;}
+    public Set<Matiere> getMatieres() {return matieres;}
 
-    public String getNom() {return nom;}
-
-    public void setNom(String nom) {this.nom = nom;}
-
-    public String getPrenom() {return prenom;}
-
-    public void setPrenom(String prenom) {this.prenom = prenom;}
-
-    public List<Matiere> getMatieres() {return matieres;}
-
-    public void setMatieres(List<Matiere> matieres) {this.matieres = matieres;}
+    public void setMatieres(Set<Matiere> matieres) {this.matieres = matieres;}
 
     public Double getTauxHoraire() {return tauxHoraire;}
 
     public void setTauxHoraire(Double tauxHoraire) {this.tauxHoraire = tauxHoraire;}
+
+    public User getIdentifiant() {
+        return identifiant;
+    }
+
+    public void setIdentifiant(User identifiant) {
+        this.identifiant = identifiant;
+    }
+
+    public Set<Emargement> getEmargements() {
+        return emargements;
+    }
+
+    public void setEmargements(Set<Emargement> emargements) {
+        this.emargements = emargements;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

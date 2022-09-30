@@ -1,6 +1,6 @@
 package com.itu.vacataire.controllers;
 
-import com.itu.vacataire.model.User;
+import com.itu.vacataire.model.*;
 import com.itu.vacataire.payload.request.LoginRequest;
 import com.itu.vacataire.payload.request.SignupRequest;
 import com.itu.vacataire.payload.response.MessageResponse;
@@ -10,6 +10,8 @@ import com.itu.vacataire.repositories.UserRepository;
 import com.itu.vacataire.security.jwt.JwtUtils;
 import com.itu.vacataire.security.services.UserDetailsImpl;
 import com.itu.vacataire.services.AuthService;
+import com.itu.vacataire.services.MatiereService;
+import com.itu.vacataire.services.ProfesseurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -21,7 +23,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -34,8 +38,14 @@ public class AuthController {
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    MatiereService matiereService;
+
     @Autowired
     AuthService authService;
+    @Autowired
+    ProfesseurService professeurService;
     @Autowired
     JwtUtils jwtUtils;
     @PostMapping(value = "/signin")
@@ -49,7 +59,7 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
         User u = userRepository.findByUsername(userDetails.getUsername()).orElse(null);
-        UserInfoResponse userResponse = new UserInfoResponse(u.getId(),
+        UserInfoResponse userResponse = new UserInfoResponse(
                 u.getUsername(),
                 u.getEmail(),
                 u.getNom(),
@@ -66,7 +76,16 @@ public class AuthController {
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
         }
-        authService.registerUser(signUpRequest);
+        User user = authService.registerUser(signUpRequest);
+        // add new Professeur
+        Set<Matiere> matieres = new HashSet<>();
+        signUpRequest.getMatieres().forEach(m -> {
+            Matiere matiere = matiereService.findMatiereByName(m);
+            if (matiere != null) {
+                matieres.add(matiere);
+            }
+        });
+        professeurService.addProfesseur(new Professeur(user, matieres));
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
     @PostMapping("/signout")

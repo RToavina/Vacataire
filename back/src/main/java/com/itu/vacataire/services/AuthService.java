@@ -24,7 +24,7 @@ public class AuthService {
     @Autowired
     PasswordEncoder encoder;
 
-    public void registerUser(SignupRequest signUpRequest) {
+    public User registerUser(SignupRequest signUpRequest) {
         // Create new user's account
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
@@ -58,7 +58,7 @@ public class AuthService {
             });
         }
         user.setRoles(roles);
-        userRepository.save(user);
+       return  userRepository.save(user);
     }
 
 }

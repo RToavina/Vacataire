@@ -15,6 +15,7 @@ import java.util.List;
 import itu.mbds.vacataire.calendar.CalendarUtils;
 import itu.mbds.vacataire.models.Emargement;
 import itu.mbds.vacataire.R;
+import itu.mbds.vacataire.models.Matiere;
 
 public class EmargementAdapter extends ArrayAdapter<Emargement> {
     public EmargementAdapter(@NonNull Context context, List<Emargement> emargements)
@@ -36,11 +37,11 @@ public class EmargementAdapter extends ArrayAdapter<Emargement> {
         TextView emargementHeureD = convertView.findViewById(R.id.emargement_heureDepart);
         TextView emargementHeureA = convertView.findViewById(R.id.emargement_heureArrive);
 
-        String matiere = emargement.getMatiere();
+        Matiere matiere = emargement.getMatiere();
         String date = CalendarUtils.formattedDate(emargement.getDate());
-        String heureD = CalendarUtils.formattedTime(emargement.getHeureDepart());
-        String heureA = CalendarUtils.formattedTime(emargement.getHeureArrive());
-        emargementMatiere.setText(matiere);
+        String heureD = CalendarUtils.formattedTime(emargement.getDebut());
+        String heureA = CalendarUtils.formattedTime(emargement.getFin());
+        emargementMatiere.setText(matiere.nomMatiere);
         emargementDate.setText(date);
         emargementHeureD.setText(heureD);
         emargementHeureA.setText(heureA);

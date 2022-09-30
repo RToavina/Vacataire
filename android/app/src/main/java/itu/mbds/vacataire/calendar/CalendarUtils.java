@@ -1,18 +1,29 @@
 package itu.mbds.vacataire.calendar;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import itu.mbds.vacataire.models.Emargement;
 
 public class CalendarUtils {
     public static LocalDate selectedDate;
 
     public static String formattedDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+        return date.format(formatter);
+    }
+
+    public static String formattedDate2(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return date.format(formatter);
     }
 
@@ -24,6 +35,18 @@ public class CalendarUtils {
     public static String monthYearFromDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
         return date.format(formatter);
+    }
+
+    public static LocalDate stringToLocalDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        return localDate;
+    }
+
+    public static LocalTime stringToLocaTime(String hour) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("kk:mm");
+        LocalTime localTime = LocalTime.parse(hour, formatter);
+        return localTime;
     }
 
     public static ArrayList<LocalDate> daysInMonthArray(LocalDate date) {
@@ -69,8 +92,20 @@ public class CalendarUtils {
         return null;
     }
 
-    public static List<LocalDate> getEmargement(String month) {
-        //TODO retrieve all emargement
-        return new ArrayList<>();
+
+    public static boolean isValidFormat(String format, String value) {
+        Date date = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            date = sdf.parse(value);
+            if (!value.equals(sdf.format(date))) {
+                date = null;
+            }
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        return date != null;
     }
+
+
 }

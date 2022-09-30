@@ -8,6 +8,8 @@ public interface IMatiereService {
 
     Matiere getMatierebyId(Long id);
 
+    Matiere findMatiereByName(String name);
+
     List<Matiere> all();
 
     Matiere addMatiere(Matiere matiere);

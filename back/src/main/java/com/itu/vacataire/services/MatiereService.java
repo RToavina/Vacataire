@@ -20,14 +20,19 @@ public class MatiereService implements IMatiereService {
     }
 
     @Override
+    public Matiere findMatiereByName(String name) {
+        return matiereRepository.findMatiereByNomMatiere(name).orElseThrow(() -> new RuntimeException("Error: Matiere is not found."));
+    }
+
+    @Override
     public List<Matiere> all() {
         return matiereRepository.findAll();
     }
 
     @Override
     public Matiere addMatiere(Matiere matiere) {
-        if(matiere == null){
-          throw new IllegalArgumentException();
+        if (matiere == null) {
+            throw new IllegalArgumentException();
         }
         return matiereRepository.save(matiere);
     }

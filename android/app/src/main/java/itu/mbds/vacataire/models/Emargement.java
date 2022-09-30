@@ -1,29 +1,36 @@
 package itu.mbds.vacataire.models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
+import java.util.Objects;
 
-public class Emargement {
-    //TODO compléter la classe
-    private String matiere;
+public class Emargement implements Serializable {
+    private Long id;
+    private Matiere matiere;
 
     private LocalDate date;
-    private LocalTime heureDepart;
-    private LocalTime heureArrive;
+    private LocalTime debut;
+    private LocalTime fin;
+    private boolean done;
 
-    public Emargement(String matiere, LocalDate date, LocalTime heureDepart, LocalTime heureArrive) {
-        this.matiere = matiere;
-        this.date = date;
-        this.heureDepart = heureDepart;
-        this.heureArrive = heureArrive;
+    public Emargement() {
+
     }
 
-    public String getMatiere() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Matiere getMatiere() {
         return matiere;
     }
 
-    public void setMatiere(String matiere) {
+    public void setMatiere(Matiere matiere) {
         this.matiere = matiere;
     }
 
@@ -35,19 +42,40 @@ public class Emargement {
         this.date = date;
     }
 
-    public LocalTime getHeureDepart() {
-        return heureDepart;
+    public LocalTime getDebut() {
+        return debut;
     }
 
-    public void setHeureDepart(LocalTime heureDepart) {
-        this.heureDepart = heureDepart;
+    public void setDebut(LocalTime debut) {
+        this.debut = debut;
     }
 
-    public LocalTime getHeureArrive() {
-        return heureArrive;
+    public LocalTime getFin() {
+        return fin;
     }
 
-    public void setHeurearrive(LocalTime heureArrive) {
-        this.heureArrive = heureArrive;
+    public void setFin(LocalTime fin) {
+        this.fin = fin;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Emargement that = (Emargement) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

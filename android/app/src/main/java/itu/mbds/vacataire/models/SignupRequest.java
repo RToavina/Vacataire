@@ -1,39 +1,26 @@
-package com.itu.vacataire.payload.request;
-
-import com.itu.vacataire.model.Matiere;
+package itu.mbds.vacataire.models;
 
 import java.util.List;
 import java.util.Set;
 
 public class SignupRequest {
-
     private String username;
     private String email;
     private String password;
     private String nom;
     private String prenom;
-
     private String phoneNumber;
+    private List<String> matieres;
     private Set<String> roles;
 
-    private List<String> matieres;
-
-    public SignupRequest(String username, String email, String password, String nom, String prenom, String phoneNumber, Set<String> roles) {
+    public SignupRequest(String username, String email, String password, String nom, String prenom, String phoneNumber, List<String> matieres) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.nom = nom;
         this.prenom = prenom;
         this.phoneNumber = phoneNumber;
-        this.roles = roles;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        this.matieres = matieres;
     }
 
     public String getUsername() {
@@ -74,21 +61,5 @@ public class SignupRequest {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
-    }
-
-    public Set<String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
-    }
-
-    public List<String> getMatieres() {
-        return matieres;
-    }
-
-    public void setMatieres(List<String> matieres) {
-        this.matieres = matieres;
     }
 }

@@ -26,16 +26,22 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import itu.mbds.vacataire.R;
 import itu.mbds.vacataire.adapter.CalendarAdapter;
 import itu.mbds.vacataire.calendar.CalendarUtils;
+import itu.mbds.vacataire.models.Emargement;
+import itu.mbds.vacataire.models.ProfesseurViewModel;
 import itu.mbds.vacataire.models.UserViewModel;
 
 public class CalendarFragment extends Fragment implements CalendarAdapter.OnItemListener {
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private UserViewModel userViewModel;
+    private ProfesseurViewModel professeurViewModel;
+    private List<Emargement> emargements;
 
     public CalendarFragment() {
         // Required empty public constructor
@@ -56,6 +62,11 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
         Button nextButton = (Button) view.findViewById(R.id.calendar_btn_next);
         Button weeklyButton = (Button) view.findViewById(R.id.calendar_btn_weekly);
         FloatingActionButton emarger = (FloatingActionButton) view.findViewById(R.id.btn_plus_emarger);
+        professeurViewModel = new ViewModelProvider(requireActivity()).get(ProfesseurViewModel.class);
+        professeurViewModel.getProfesseur().observe(getViewLifecycleOwner(), professeur -> {
+            emargements = professeur.emargements;
+            setMonthView();
+        });
 
         previousButton.setOnClickListener(this::previousMonthAction);
         nextButton.setOnClickListener(this::nextMonthAction);
@@ -75,6 +86,8 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
             }
         });
 
+        professeurViewModel = new ViewModelProvider(requireActivity()).get(ProfesseurViewModel.class);
+
         initWidgets();
         CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();
@@ -88,8 +101,13 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
     private void setMonthView() {
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
         ArrayList<LocalDate> daysInMonth = daysInMonthArray(CalendarUtils.selectedDate);
-
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
+        List<LocalDate> e = new ArrayList<>();
+        if(emargements != null) {
+            e = emargements.stream().map(emargement ->
+                    emargement.getDate()
+            ).collect(Collectors.toList());
+        }
+        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth,e, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
@@ -120,7 +138,9 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
 
     public void emargerAction(View view) {
         NavDirections action = CalendarFragmentDirections.actionCalendarFragmentToEmargementFragment();
-        Navigation.findNavController(view).navigate(action);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("selectedDate", CalendarUtils.selectedDate);
+        Navigation.findNavController(view).navigate(action.getActionId(), bundle);
     }
 
 }

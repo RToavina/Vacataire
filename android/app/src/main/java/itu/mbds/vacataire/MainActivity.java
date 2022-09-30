@@ -1,26 +1,44 @@
 package itu.mbds.vacataire;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import itu.mbds.vacataire.calendar.CalendarUtils;
+import itu.mbds.vacataire.models.Matiere;
+import itu.mbds.vacataire.models.MatiereViewModel;
+import itu.mbds.vacataire.models.ProfesseurViewModel;
 import itu.mbds.vacataire.models.UserViewModel;
 
 public class MainActivity extends AppCompatActivity {
     private UserViewModel userViewModel;
+    private MatiereViewModel matiereViewModel;
+    private ProfesseurViewModel professeurViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        matiereViewModel = new ViewModelProvider(this).get(MatiereViewModel.class);
+        professeurViewModel = new ViewModelProvider(this).get(ProfesseurViewModel.class);
+
+        userViewModel.getUser().observe(this, user -> {
+            if(user != null) {
+                professeurViewModel.loadProfesseur(user);
+            }
+        });
     }
 
     @Override
@@ -38,12 +56,16 @@ public class MainActivity extends AppCompatActivity {
                 navController.navigate(R.id.signupFragment);
                 invalidateOptionsMenu();
                 return true;
+            case R.id.navigation_login:
+                navController.navigate(R.id.loginFragment);
+                invalidateOptionsMenu();
+                return true;
             case R.id.navigation_calendar:
                 navController.navigate(R.id.calendarFragment);
                 invalidateOptionsMenu();
                 return true;
             case R.id.navigation_logout:
-                userViewModel.clearUser();
+                userViewModel.signout();
                 navController.navigate(R.id.loginFragment);
                 invalidateOptionsMenu();
                 return true;

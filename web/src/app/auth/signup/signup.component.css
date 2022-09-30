@@ -2,13 +2,11 @@
 
 #wrapper {
   margin: 0 auto;
-  margin-top: 5%;
   width: 922px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 #leftcolumn {
   margin: 0px 5px 5px 0px;
   padding: 10px;
@@ -26,8 +24,6 @@
 
 #content {
   float: left;
-  border: 1px solid #ccc;
-  border-radius: 25px;
   margin: 0px 5px 5px 0px;
   padding: 10px;
   height: 350px;

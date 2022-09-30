@@ -1,0 +1,47 @@
+<div id="wrapper">
+  <div id="leftcolumn"></div>
+
+  <div id="content">
+
+    <div id="top_content">
+      <img src="assets/img/logo.png" class="img">
+      <h2>Emargement des heures</h2>
+    </div>
+
+    <form class="form_container">
+
+      <mat-form-field appearance="fill" appearance="outline">
+        <mat-label>Matières</mat-label>
+        <mat-select>
+          <mat-option value="svt">SVT</mat-option>
+          <mat-option value="pc">PC</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Date à émarger</mat-label>
+        <input matInput type="date" >
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>Heure d'arrivée</mat-label>
+        <input matInput type="time" >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Heure de départ</mat-label>
+        <input matInput type="time" >
+      </mat-form-field>
+
+    </form>
+
+    <mat-label>Durée</mat-label>
+
+    <button mat-raised-button type="submit" color="primary">Emarger</button>
+
+  </div>
+
+  <div id="rightcolumn"></div>
+
+</div>

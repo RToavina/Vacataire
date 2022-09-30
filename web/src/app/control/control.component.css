@@ -1,0 +1,29 @@
+.font_header{
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+}
+
+.grid-container {
+  display: flex;
+  gap: 10px;
+  border: black;
+}
+
+.column {
+  flex: 50%;
+}
+
+.form_container{
+  display: flex;
+  flex-direction: column;
+}
+
+.button_container{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 20px;
+}

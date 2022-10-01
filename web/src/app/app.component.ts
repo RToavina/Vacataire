@@ -21,7 +21,6 @@ export class AppComponent implements OnInit{
       if(u != null) {
         const user = new User(u);
         this.showProfesseur = user.hasExpectedRoles([Role.ROLE_MODERATOR.toString(),Role.ROLE_ADMIN.toString()]);
-        console.log(this.showProfesseur)
       }else {
         this.showProfesseur = false;
       }

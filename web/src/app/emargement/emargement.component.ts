@@ -1,11 +1,27 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {DialogRef} from "@angular/cdk/dialog";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Professeur} from "../model/professeur";
 import {Emargement} from "../model/emargement";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {Matiere} from "../model/matiere";
 import {DatePipe} from "@angular/common";
+import {combineLatest} from "rxjs";
+
+const MyAwesomeRangeValidator: ValidatorFn = (fg: FormGroup) => {
+  const dateValue = fg.get('date');
+  const startValue = fg.get('debut');
+  const endValue = fg.get('fin');
+
+  const start = new Date(dateValue.value+'T'+startValue.value).getTime();
+  const end = new Date(dateValue.value+'T'+endValue.value).getTime();
+
+  if (start !== null && end !== null && start < end){
+    return null;
+  }
+  startValue.setErrors({range: true});
+  endValue.setErrors({range: true});
+  return {range: true};
+};
 
 @Component({
   selector: 'app-emargement',
@@ -18,6 +34,7 @@ export class EmargementComponent implements OnInit {
 
   matieres: Matiere[] = [];
   emargement: Emargement;
+  duree = 0;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { professeur: Professeur, emargement: Emargement },
               private dialogRef: MatDialogRef<EmargementComponent>,
@@ -38,6 +55,21 @@ export class EmargementComponent implements OnInit {
       debut: [this.emargement?.debut, Validators.required],
       fin: [this.emargement?.fin, Validators.required],
     })
+
+    this.form.setValidators(MyAwesomeRangeValidator);
+
+    combineLatest([this.form.get('date').valueChanges, this.form.get('debut').valueChanges, this.form.get('fin').valueChanges])
+      .subscribe(([date,debut,fin]) => {
+        const start = new Date(date+'T'+debut).getTime();
+        const end = new Date(date+'T'+fin).getTime();
+        this.duree = this.getHoursDiff(start, end);
+      });
+
+  }
+
+  getHoursDiff(startDate, endDate) {
+    const msInHour = 1000 * 60 * 60;
+    return Math.round((endDate - startDate) / msInHour);
   }
 
   getRecord() {

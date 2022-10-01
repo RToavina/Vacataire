@@ -43,6 +43,12 @@ export class AuthService {
     return localStorage.getItem("user") != null;
   }
 
+  hasExpectedRole(roles: string[]) {
+    const userString = localStorage.getItem("user");
+    const user = userString != null ? new User(JSON.parse(userString)) : null;
+    return user?.hasExpectedRoles(roles);
+  }
+
   logout() {
     this.httpClient.post(this.logoutUrl, {}).subscribe(res => {
       localStorage.removeItem("user");

@@ -16,10 +16,8 @@ const MyAwesomeRangeValidator: ValidatorFn = (fg: FormGroup) => {
   const end = new Date(dateValue.value+'T'+endValue.value).getTime();
 
   if (start !== null && end !== null && start < end){
-    return null;
+    return {range: false};
   }
-  startValue.setErrors({range: true});
-  endValue.setErrors({range: true});
   return {range: true};
 };
 

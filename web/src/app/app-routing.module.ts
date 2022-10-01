@@ -1,12 +1,12 @@
-import { LoginComponent } from './auth/login/login.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { EmargementComponent } from './emargement/emargement.component';
-import { CalendarComponent } from './calendar/calendar.component';
+import {LoginComponent} from './auth/login/login.component';
+import {CalendarComponent} from './calendar/calendar.component';
 
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {ControlComponent} from "./control/control.component";
 import {AuthGuard} from "./services/auth.guard";
+import {RoleGuard} from "./services/role.guard";
+import {Role} from "./model/role";
 
 const routes: Routes = [  {
   path: '',
@@ -25,7 +25,8 @@ const routes: Routes = [  {
   {
     path: 'control',
     component: ControlComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, RoleGuard],
+    data: {roles: [Role.ROLE_MODERATOR,Role.ROLE_ADMIN]}
   }
 ];
 

@@ -29,7 +29,7 @@
     <input matInput type="time" formControlName="fin">
   </mat-form-field>
 
-  <mat-label [class.error]="this.form.errors['range'] && (this.form.dirty || this.form.touched)">Durée : {{duree}}h
+  <mat-label [class.error]="this.form?.getError('range') && (this.form.dirty || this.form.touched)">Durée : {{duree}}h
   </mat-label>
 
   <button mat-raised-button type="submit" color="primary" (click)="close()">Emarger</button>

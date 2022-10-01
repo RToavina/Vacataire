@@ -30,7 +30,8 @@ public class AuthService {
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()),
                 signUpRequest.getNom(),
-                signUpRequest.getPrenom());
+                signUpRequest.getPrenom(),
+                signUpRequest.getPhoneNumber());
         Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
         if (strRoles == null) {

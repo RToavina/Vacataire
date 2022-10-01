@@ -1,15 +1,12 @@
 <div id="wrapper">
-
-  <div id="leftcolumn"></div>
-
-  <div id="content">
+    <div id="content">
 
     <div id="top_content">
       <img src="assets/img/logo.png" class="img">
       <h2>Inscription</h2>
     </div>
 
-    <form class="form_container">
+    <form class="form_container" [formGroup]="form">
 
       <mat-form-field appearance="outline">
         <mat-label>Nom</mat-label>
@@ -38,22 +35,24 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Mot de passe</mat-label>
-        <input matInput formControlName='mdp' type="password">
+        <input matInput formControlName='password' type="password">
       </mat-form-field>
 
       <mat-form-field  appearance="outline">
-        <mat-label>Matières</mat-label>
-        <mat-select>
-          <mat-option value="svt">SVT</mat-option>
-          <mat-option value="pc">PC</mat-option>
+        <mat-label>Matieres</mat-label>
+        <mat-select multiple formControlName="matieres">
+          <mat-option *ngFor="let matiere of matieres" [value]="matiere">{{matiere.nomMatiere}}</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <button mat-raised-button type="submit" color="primary">Inscription</button>
+      <mat-form-field appearance="outline">
+        <mat-label>Taux horaire</mat-label>
+        <input matInput formControlName='tauxHoraire' type="number">
+      </mat-form-field>
+
+      <button mat-raised-button type="submit" color="primary" (click)="signup()">Inscription</button>
 
     </form>
 
   </div>
-
-  <div id="rightcolumn"></div>
 </div>

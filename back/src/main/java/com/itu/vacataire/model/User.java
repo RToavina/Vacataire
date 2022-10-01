@@ -24,6 +24,8 @@ public class User {
     @Email
     private String email;
 
+    @Size(max = 15)
+    private String phoneNumber;
     @NotBlank
     private String nom;
 
@@ -42,12 +44,13 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password, String nom, String prenom) {
+    public User(String username, String email, String password, String nom, String prenom,  String phoneNumber) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.nom = nom;
         this.prenom = prenom;
+        this.phoneNumber = phoneNumber;
     }
     public String getUsername() {
         return username;
@@ -88,5 +91,13 @@ public class User {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

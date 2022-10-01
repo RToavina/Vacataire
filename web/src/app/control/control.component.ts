@@ -1,20 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {Professeur} from "../model/professeur";
-import {LoginComponent} from "../auth/login/login.component";
 import {MatDialog} from "@angular/material/dialog";
 import {SignupComponent} from "../auth/signup/signup.component";
-
-const PC = {nom:"PC",id:1};
-const SVT = {nom:"SVT",id:2};
-const MATH = {nom:"Math",id:3}
-
-const ELEMENT_DATA: Professeur[] = [
-  {username: 'svt.p1' , nom: 'Professeur1', prenom: 'Professeur1', matieres: [PC,SVT]},
-  {username: 'math.p2',nom: 'Professeur2',prenom: 'Professeur2', matieres: [MATH]},
-  {username: 'svt.p2',nom: 'Professeur3',prenom: 'Professeur3', matieres: [SVT]},
-  {username: 'svt.p3',nom: 'Professeur4',prenom: 'Professeur4', matieres: [MATH,SVT]},
-  {username: 'pc.p1',nom: 'Professeur5',prenom: 'Professeur5', matieres: [PC]},
-];
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {ProfesseurService} from "../services/professeur.service";
+import {Professeur} from "../model/professeur";
+import {Matiere} from "../model/matiere";
+import {MatiereService} from "../services/matiere.service";
+import {combineLatest, Observable, Subject} from "rxjs";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-control',
@@ -22,22 +15,88 @@ const ELEMENT_DATA: Professeur[] = [
   styleUrls: ['./control.component.css']
 })
 export class ControlComponent implements OnInit {
+  displayedColumns: string[] = ['username', 'nom_prenom', 'matieres', 'actions'];
+  professeurs = [];
+  selectedProfesseur: Professeur;
+  form: FormGroup;
+  matieres: Matiere[] = [];
+  reload = new Subject<void>();
 
-  constructor( private dialog:MatDialog) { }
-
-  ngOnInit(): void {
+  constructor(private dialog: MatDialog,
+              private fb: FormBuilder,
+              private authService: AuthService,
+              private professeurService: ProfesseurService,
+              private matiereService: MatiereService) {
   }
 
-  displayedColumns: string[] = ['nom_prenom','matieres','actions'];
-  dataSource = ELEMENT_DATA;
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      nom: null,
+      prenom: null,
+      email: null,
+      numeroTel: null,
+      identifiant: {value: null, disabled: true},
+      tauxHoraire: null,
+      matieres: null,
+    })
+    this.init();
+    this.reload.subscribe(() => {
+      this.init();
+    })
+  }
+
+  init() {
+    combineLatest([this.professeurService.getAllProfesseur(), this.matiereService.getMatieres()])
+      .subscribe(([p, m]) => {
+        this.professeurs = p;
+        this.matieres = m;
+        if (p?.length > 0) {
+          this.selectedProfesseur = p[0];
+          this.fillForm(this.selectedProfesseur);
+        }
+      });
+  }
 
   openDialog() {
-    const diaglogRef = this.dialog.open(SignupComponent,{
-      width : '550px',
+    const diaglogRef = this.dialog.open(SignupComponent, {
+      width: '800px',
+      data: {matieres: this.matieres}
     });
 
     diaglogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (result != null) {
+      this.authService.signup({
+          email: result.email,
+          matieres: result.matieres?.map(x => x.nomMatiere),
+          nom: result.nom,
+          password: result.prenom,
+          phoneNumber: result.phoneNumber,
+          prenom: result.prenom,
+          username: result.username,
+          tauxHoraire: result.tauxHoraire
+        }).subscribe( ()=> this.reload.next());
+      }
     });
+  }
+
+  fillForm(prof: Professeur) {
+    this.selectedProfesseur = prof;
+    this.form = this.fb.group({
+      nom: prof.nom,
+      prenom: prof.prenom,
+      email: prof.email,
+      numeroTel: prof.phoneNumber,
+      identifiant: {value: prof.username, disabled: true},
+      tauxHoraire: prof.tauxHoraire,
+      matieres: this.fb.control(prof.matieres),
+    })
+  }
+
+  compareWith(m1: any, m2: any): boolean {
+    return m1 && m2 && m1.id === m2.id;
+  }
+
+  displayMatieres(matieres: Matiere[]) {
+    return matieres.map(x=>x.nomMatiere).join(', ');
   }
 }

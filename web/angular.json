@@ -65,10 +65,11 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "vacataire:build:production"
+              "browserTarget": "vacataire:build:production",
             },
             "development": {
-              "browserTarget": "vacataire:build:development"
+              "browserTarget": "vacataire:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
@@ -99,5 +100,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

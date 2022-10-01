@@ -18,6 +18,7 @@ public class ProfesseurDto extends UserInfoResponse {
                 p.getIdentifiant().getEmail(),
                 p.getIdentifiant().getNom(),
                 p.getIdentifiant().getPrenom(),
+                p.getIdentifiant().getPhoneNumber(),
                 p.getIdentifiant().getRoles().stream().map(r -> r.getName().name()).collect(Collectors.toList())
         );
         matieres = p.getMatieres();

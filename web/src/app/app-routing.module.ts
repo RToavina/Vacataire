@@ -6,23 +6,26 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {ControlComponent} from "./control/control.component";
+import {AuthGuard} from "./services/auth.guard";
 
 const routes: Routes = [  {
   path: '',
-  redirectTo: '/login',
+  redirectTo: 'calendar',
   pathMatch: 'full'
 },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'calendar',
-    component: CalendarComponent
+    component: CalendarComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'control',
-    component: ControlComponent
+    component: ControlComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

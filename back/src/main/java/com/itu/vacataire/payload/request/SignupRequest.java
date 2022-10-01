@@ -13,12 +13,13 @@ public class SignupRequest {
     private String nom;
     private String prenom;
 
+    private Double tauxHoraire;
     private String phoneNumber;
     private Set<String> roles;
 
     private List<String> matieres;
 
-    public SignupRequest(String username, String email, String password, String nom, String prenom, String phoneNumber, Set<String> roles) {
+    public SignupRequest(String username, String email, String password, String nom, String prenom, String phoneNumber, Double tauxHoraire, Set<String> roles) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -26,6 +27,7 @@ public class SignupRequest {
         this.prenom = prenom;
         this.phoneNumber = phoneNumber;
         this.roles = roles;
+        this.tauxHoraire = tauxHoraire;
     }
 
     public String getPhoneNumber() {
@@ -90,5 +92,13 @@ public class SignupRequest {
 
     public void setMatieres(List<String> matieres) {
         this.matieres = matieres;
+    }
+
+    public Double getTauxHoraire() {
+        return tauxHoraire;
+    }
+
+    public void setTauxHoraire(Double tauxHoraire) {
+        this.tauxHoraire = tauxHoraire;
     }
 }

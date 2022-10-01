@@ -1,12 +1,10 @@
-* { padding: 0; margin: 0; }
 
 #wrapper {
-  margin: 0 auto;
-  width: 922px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 #leftcolumn {
   margin: 0px 5px 5px 0px;
   padding: 10px;
@@ -26,7 +24,6 @@
   float: left;
   margin: 0px 5px 5px 0px;
   padding: 10px;
-  height: 350px;
   width: 456px;
   display: inline;
 }

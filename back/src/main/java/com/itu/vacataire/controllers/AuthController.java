@@ -62,6 +62,7 @@ public class AuthController {
         UserInfoResponse userResponse = new UserInfoResponse(
                 u.getUsername(),
                 u.getEmail(),
+                u.getPhoneNumber(),
                 u.getNom(),
                 u.getPrenom(),
                 roles);
@@ -85,7 +86,7 @@ public class AuthController {
                 matieres.add(matiere);
             }
         });
-        professeurService.addProfesseur(new Professeur(user, matieres));
+        professeurService.addProfesseur(new Professeur(user, matieres, signUpRequest.getTauxHoraire()));
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
     @PostMapping("/signout")

@@ -59,11 +59,11 @@ public class DataLoader implements ApplicationRunner {
 
     public void initEmargement() {
         emargements = new HashSet<>();
-        emargements.add(emargementRepository.save(new Emargement(LocalDate.of(2022, Month.SEPTEMBER, 8), LocalTime.parse("12:32:22",
-                DateTimeFormatter.ISO_TIME),  LocalTime.parse("13:32:22",
+        emargements.add(emargementRepository.save(new Emargement(LocalDate.of(2022, Month.SEPTEMBER, 8), LocalTime.parse("12:32",
+                DateTimeFormatter.ISO_TIME),  LocalTime.parse("13:32",
                 DateTimeFormatter.ISO_TIME), svt,pAdmin, false)));
-        emargements.add(emargementRepository.save(new Emargement(LocalDate.of(2022, Month.SEPTEMBER, 8), LocalTime.parse("14:32:22",
-                DateTimeFormatter.ISO_TIME),  LocalTime.parse("14:32:22",
+        emargements.add(emargementRepository.save(new Emargement(LocalDate.of(2022, Month.SEPTEMBER, 8), LocalTime.parse("14:32",
+                DateTimeFormatter.ISO_TIME),  LocalTime.parse("14:32",
                 DateTimeFormatter.ISO_TIME), pc,pAdmin, false)));
     }
 
@@ -73,21 +73,21 @@ public class DataLoader implements ApplicationRunner {
                 "user1",
                 "User",
                 "user1",
-                "00000000",null
+                "00000000",null, null
               ));
         user2 = this.authService.registerUser(new SignupRequest("user2",
                 "user2@test.com",
                 "user2",
                 "User",
                 "user2",
-                "00000000",null
+                "00000000",null, null
         ));
         user3 = this.authService.registerUser(new SignupRequest("user3",
                 "user3@test.com",
                 "user3",
                 "User",
                 "user3",
-                "00000000",null
+                "00000000",null,null
         ));
         p1 = professeurService.addProfesseur(new Professeur(user1, Set.of(svt, pc), 1000.0));
         p2 = professeurService.addProfesseur(new Professeur(user2, Set.of(pc), 1500.0));
@@ -107,8 +107,9 @@ public class DataLoader implements ApplicationRunner {
                 "Admin",
                 "admin",
                 "00000000",
+                null,
                 Set.of("admin")));
-        pAdmin = professeurService.addProfesseur(new Professeur(admin, Set.of(svt, pc, info), null));
+        pAdmin = professeurService.addProfesseur(new Professeur(admin, Set.of(svt, pc, info), 10000.0));
 
     }
 

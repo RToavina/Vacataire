@@ -3,6 +3,7 @@ package com.itu.vacataire.utils;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class CalendarUtils {
 
@@ -13,8 +14,12 @@ public class CalendarUtils {
     }
 
     public static LocalTime stringToLocaTime(String hour) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("kk:mm");
-        LocalTime localTime = LocalTime.parse(hour, formatter);
+        LocalTime localTime= null;
+        try {
+            localTime = LocalTime.parse(hour, DateTimeFormatter.ofPattern("kk:mm"));
+        }catch (DateTimeParseException e) {
+            localTime = LocalTime.parse(hour,  DateTimeFormatter.ofPattern("kk:mm:ss"));
+        }
         return localTime;
     }
 }

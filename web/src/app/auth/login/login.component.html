@@ -8,18 +8,18 @@
       <h4>Connectez-vous pour continuer</h4>
     </div>
 
-    <form class="form_container">
+    <form [formGroup]="form" class="form_container">
       <mat-form-field appearance="outline">
         <mat-label>Identifiant</mat-label>
-        <input matInput formControlName='identifiant'>
+        <input matInput formControlName="identifiant">
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Mot de passe</mat-label>
-        <input matInput type="password" formControlName='password'>
+        <input matInput type="password" formControlName="password">
       </mat-form-field>
 
-      <button mat-raised-button type="submit" color="primary">Connexion</button>
+      <button mat-raised-button type="submit" color="primary" (click)="login()">Connexion</button>
 
     </form>
   </div>

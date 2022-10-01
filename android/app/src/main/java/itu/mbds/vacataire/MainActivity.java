@@ -20,6 +20,8 @@ import itu.mbds.vacataire.models.Matiere;
 import itu.mbds.vacataire.models.MatiereViewModel;
 import itu.mbds.vacataire.models.ProfesseurViewModel;
 import itu.mbds.vacataire.models.UserViewModel;
+import itu.mbds.vacataire.ui.LoginFragmentDirections;
+import itu.mbds.vacataire.ui.SignupFragmentDirections;
 
 public class MainActivity extends AppCompatActivity {
     private UserViewModel userViewModel;
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             menu.findItem(R.id.navigation_logout).setVisible(false);
             menu.findItem(R.id.navigation_calendar).setVisible(false);
             menu.findItem(R.id.navigation_login).setVisible(true);
-            menu.findItem(R.id.navigation_signup).setVisible(true);
+            menu.findItem(R.id.navigation_signup).setVisible(false);
         }else{
             menu.findItem(R.id.navigation_logout).setVisible(true);
             menu.findItem(R.id.navigation_calendar).setVisible(true);

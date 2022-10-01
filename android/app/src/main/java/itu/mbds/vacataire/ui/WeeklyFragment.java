@@ -61,10 +61,13 @@ public class WeeklyFragment extends Fragment implements CalendarAdapter.OnItemLi
         Button previousButton = (Button) view.findViewById(R.id.weekly_btn_previous);
         Button nextButton = (Button) view.findViewById(R.id.weekly_btn_next);
         Button emargerButton = (Button) view.findViewById(R.id.weekly_btn_emarger);
+        Button monthlyButton = (Button) view.findViewById(R.id.calendar_btn_monthly);
+
 
         previousButton.setOnClickListener(this::previousWeekAction);
         nextButton.setOnClickListener(this::nextWeekAction);
         emargerButton.setOnClickListener(this::emargerAction);
+        monthlyButton.setOnClickListener(this::monthly);
         return view;
     }
 
@@ -149,5 +152,10 @@ public class WeeklyFragment extends Fragment implements CalendarAdapter.OnItemLi
         Bundle bundle = new Bundle();
         bundle.putSerializable("selectedDate", CalendarUtils.selectedDate);
         Navigation.findNavController(view).navigate(action.getActionId(), bundle);
+    }
+
+    public void monthly(View view) {
+        NavDirections action = WeeklyFragmentDirections.actionWeeklyFragmentToCalendarFragment();
+        Navigation.findNavController(view).navigate(action.getActionId());
     }
 }

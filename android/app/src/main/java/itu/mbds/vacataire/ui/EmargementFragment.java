@@ -257,7 +257,7 @@ public class EmargementFragment extends Fragment {
                 public void onResponse(Call<EmargementString> call, Response<EmargementString> response) {
                     if (response.isSuccessful()) {
                         Emargement emargement = EmargementString.toEmargement(response.body());
-                        professeur.emargements = professeur.emargements.stream().filter(e -> e.equals(emargement)).collect(Collectors.toList());
+                        professeur.emargements = professeur.emargements.stream().filter(e -> !e.equals(emargement)).collect(Collectors.toList());
                         professeur.emargements.add(emargement);
                         professeurViewModel.setValue(professeur);
                         Toast.makeText(getContext(), "Emagement ok", Toast.LENGTH_LONG).show();

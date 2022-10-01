@@ -89,7 +89,9 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
         professeurViewModel = new ViewModelProvider(requireActivity()).get(ProfesseurViewModel.class);
 
         initWidgets();
-        CalendarUtils.selectedDate = LocalDate.now();
+        if( CalendarUtils.selectedDate == null) {
+            CalendarUtils.selectedDate = LocalDate.now();
+        }
         setMonthView();
     }
 

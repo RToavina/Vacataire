@@ -12,6 +12,8 @@
         tools:layout="@layout/fragment_signup" >
         <action
             android:id="@+id/action_signupFragment_to_loginFragment"
+            app:popUpTo="@+id/main_nav_graph"
+            app:popUpToInclusive="true"
             app:destination="@id/loginFragment" />
     </fragment>
     <fragment
@@ -21,6 +23,8 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_calendarFragment"
+            app:popUpTo="@+id/main_nav_graph"
+            app:popUpToInclusive="true"
             app:destination="@id/calendarFragment" />
     </fragment>
     <fragment
@@ -30,6 +34,8 @@
         tools:layout="@layout/fragment_calendar">
         <action
             android:id="@+id/action_calendarFragment_to_weeklyFragment"
+            app:popUpTo="@+id/main_nav_graph"
+            app:popUpToInclusive="true"
             app:destination="@id/weeklyFragment" />
         <action
             android:id="@+id/action_calendarFragment_to_emargementFragment"
@@ -43,6 +49,11 @@
         <action
             android:id="@+id/action_weeklyFragment_to_emargementFragment"
             app:destination="@id/emargementFragment" />
+        <action
+            android:id="@+id/action_weeklyFragment_to_calendarFragment"
+            app:popUpTo="@+id/main_nav_graph"
+            app:popUpToInclusive="true"
+            app:destination="@id/calendarFragment" />
     </fragment>
     <fragment
         android:id="@+id/emargementFragment"
